@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  width: 290px;
+  height: 100vh;
+  background: #f6f2e8;
+  border-right: 1px solid #e5dfd2;
+  display: flex;
+  flex-direction: column;
+  transition: .35s;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+  width: 90px;
+}
+
+/* ==========================
+        HEADER
+========================== */
+
+.sidebar-header {
+  height: 90px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 1px solid #ebe5d9;
+}
+
+.sidebar-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  color: #41522f;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.toggle-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  outline: none;
+  border-radius: 14px;
+  background: #edf2df;
+  color: #6d8a45;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.toggle-btn:hover {
+  background: #748d4b;
+  color: #fff;
+}
+
+/* ==========================
+        SEARCH
+========================== */
+
+.search-box {
+  height: 56px;
+  margin: 22px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+}
+
+.search-box svg {
+  color: #748d4b;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #4b4b4b;
+}
+
+.search-box input::placeholder {
+  color: #9b9b8b;
+}
+
+/* ==========================
+        MENU
+========================== */
+
+.menu {
+  flex: 1;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==========================
+        MENU ITEMS
+========================== */
+
+.menu-item {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 18px;
+  border-radius: 18px;
+  text-decoration: none;
+  color: #556045;
+  font-size: 15px;
+  font-weight: 500;
+  transition: .3s;
+}
+
+.menu-item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.menu-item:hover {
+  background: #edf2df;
+  color: #5f763c;
+  transform: translateX(4px);
+}
+
+.menu-item.active {
+  background: #748d4b;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(116, 141, 75, .28);
+}
+
+.menu-item.active svg {
+  color: #ffffff;
+}
+
+.sidebar.collapsed .menu-item {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar.collapsed .menu-item span {
+  display: none;
+}
+
+/* ==========================
+        FOOTER
+========================== */
+
+.sidebar-footer {
+  padding: 20px;
+  background: #ffffff;
+  border-top: 1px solid #ebe5d9;
+}
+
+.sidebar-footer div {
+  background: #edf2df;
+  border-radius: 18px;
+  padding: 15px 18px;
+}
+
+.sidebar-footer h4 {
+  color: #384528;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.sidebar-footer span {
+  color: #748d4b;
+  font-size: 13px;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 18px 10px;
+}
+
+.sidebar.collapsed .sidebar-footer div {
+  display: none;
+}
+
+/* ==========================
+        SCROLLBAR
+========================== */
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #d8dfc3;
+  border-radius: 20px;
+}
+
+/* ==========================
+        ANIMATION
+========================== */
+
+.menu-item {
+  animation: fadeMenu .35s ease;
+}
+
+@keyframes fadeMenu {
+
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+}
+
+/* ==========================
+        RESPONSIVE
+========================== */
+
+@media(max-width:900px) {
+
+  .sidebar {
+    width: 90px;
+  }
+
+  .sidebar-header h2,
+  .search-box,
+  .menu-item span,
+  .sidebar-footer div {
+    display: none;
+  }
+
+  .sidebar-header {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .toggle-btn {
+    display: none;
+  }
+
+  .menu {
+    padding: 18px 12px;
+    align-items: center;
+  }
+
+  .menu-item {
+    width: 58px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+}
+
+@media(max-width:600px) {
+
+  .sidebar {
+    width: 75px;
+  }
+
+  .menu-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+  }
+
+  .menu-item svg {
+    width: 20px;
+    height: 20px;
+  }
+
+}

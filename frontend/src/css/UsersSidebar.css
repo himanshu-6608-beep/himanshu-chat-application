@@ -1,0 +1,278 @@
+.users-panel{
+    width:390px;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    background:#f8f5ee;
+    border-right:1px solid #e8e2d6;
+    overflow:hidden;
+}
+
+/* ===========================
+        HEADER
+=========================== */
+
+.users-header{
+    height:82px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 24px;
+    background:#ffffff;
+    border-bottom:1px solid #e8e2d6;
+    flex-shrink:0;
+}
+
+.users-header h2{
+    font-size:30px;
+    font-family:"Playfair Display",serif;
+    color:#384528;
+    font-weight:700;
+}
+
+.add-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#748d4b;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.add-btn:hover{
+    background:#5d723d;
+    transform:translateY(-2px);
+}
+
+/* ===========================
+        SEARCH
+=========================== */
+
+.users-search{
+    margin:20px;
+    height:54px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 18px;
+    background:#ffffff;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.users-search svg{
+    color:#748d4b;
+    flex-shrink:0;
+}
+
+.users-search input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    color:#444;
+}
+
+.users-search input::placeholder{
+    color:#999;
+}
+
+/* ===========================
+        USERS LIST
+=========================== */
+
+.users-list{
+    flex:1;
+    overflow-y:auto;
+    padding:0 15px 20px;
+}
+
+.users-list::-webkit-scrollbar{
+    width:6px;
+}
+
+.users-list::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.users-list::-webkit-scrollbar-thumb{
+    background:#d6ddbf;
+    border-radius:20px;
+}
+
+/* ===========================
+        USER CARD
+=========================== */
+
+.user-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:14px;
+    border-radius:18px;
+    cursor:pointer;
+    transition:.3s;
+    margin-bottom:10px;
+}
+
+.user-card:hover{
+    background:#edf2df;
+}
+
+.active-user{
+    background:#748d4b;
+    box-shadow:0 10px 25px rgba(116,141,75,.25);
+}
+
+.active-user .user-info h4,
+.active-user .user-info span{
+    color:#fff;
+}
+
+/* ===========================
+        AVATAR
+=========================== */
+
+.user-avatar{
+    position:relative;
+    flex-shrink:0;
+}
+
+.user-avatar img{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #dbe3c2;
+}
+
+.active-user .user-avatar img{
+    border-color:#fff;
+}
+
+.online-dot{
+    position:absolute;
+    bottom:2px;
+    right:2px;
+    width:13px;
+    height:13px;
+    background:#48c774;
+    border-radius:50%;
+    border:2px solid #fff;
+}
+
+/* ===========================
+        USER INFO
+=========================== */
+
+.user-info{
+    flex:1;
+    overflow:hidden;
+}
+
+.user-info h4{
+    font-size:16px;
+    color:#384528;
+    margin-bottom:4px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.user-info span{
+    display:block;
+    font-size:13px;
+    color:#748d4b;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* ===========================
+        EMPTY
+=========================== */
+
+.empty-users{
+    margin-top:70px;
+    text-align:center;
+    color:#8e8e7c;
+    font-size:15px;
+}
+
+/* ===========================
+        ANIMATION
+=========================== */
+
+.user-card{
+    animation:slideUser .35s ease;
+}
+
+@keyframes slideUser{
+    from{
+        opacity:0;
+        transform:translateX(-20px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+/* ===========================
+        RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+    .users-panel{
+        width:100%;
+        border-right:none;
+    }
+
+    .users-header{
+        padding:0 18px;
+    }
+
+    .users-search{
+        margin:15px;
+    }
+
+    .user-card{
+        padding:12px;
+    }
+
+    .user-avatar img{
+        width:50px;
+        height:50px;
+    }
+
+    .users-header h2{
+        font-size:26px;
+    }
+}
+
+@media(max-width:500px){
+
+    .users-search{
+        height:48px;
+    }
+
+    .users-search input{
+        font-size:14px;
+    }
+
+    .user-info h4{
+        font-size:15px;
+    }
+
+    .user-info span{
+        font-size:12px;
+    }
+}
