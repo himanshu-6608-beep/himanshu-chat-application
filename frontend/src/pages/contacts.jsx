@@ -4,9 +4,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Plus, Search } from "lucide-react";
 import "../css/contacts.css";
+import { socket } from "../services/socket";
 
 const API_URL = "http://localhost:1222/api";
-
+const currentUser = JSON.parse(localStorage.getItem("user"))
 const Contacts = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
@@ -44,6 +45,17 @@ const Contacts = () => {
     };
 
     useEffect(() => {
+        socket.emit("join", currentUser._id);
+
+        socket.on("contact-added", () => {
+            handleGetUser()
+        });
+
+        return () => {
+            socket.off("contact-added");
+        };
+    }, []);
+    useEffect(() => {
         handleGetUser();
     }, []);
 
@@ -66,7 +78,7 @@ const Contacts = () => {
 
             setAddUser({ email: "" });
             setShowAddUser(false);
-
+            handleGetUser();
         } catch (error) {
             console.log(error)
             Swal.fire({
@@ -172,28 +184,38 @@ const Contacts = () => {
                 </div>
             </div>
             {showAddUser && (
-                <div className="add-user-modal">
-                    <input
-                        type="email"
-                        placeholder="Enter User Email"
-                        value={addUser.email}
-                        onChange={(e) =>
-                            setAddUser({
-                                ...addUser,
-                                email: e.target.value,
-                            })
-                        }
-                    />
+                <div className="modal-overlay">
+                    <div className="add-user-modal">
+                        <h3>Add New User</h3>
 
-                    <button onClick={handleAddUser}>
-                        Add User
-                    </button>
+                        <input
+                            type="email"
+                            placeholder="Enter User Email"
+                            value={addUser.email}
+                            onChange={(e) =>
+                                setAddUser({
+                                    ...addUser,
+                                    email: e.target.value,
+                                })
+                            }
+                        />
 
-                    <button onClick={() => setShowAddUser(false)}>
-                        Cancel
-                    </button>
+                        <div className="modal-buttons">
+                            <button className="add-btn" onClick={handleAddUser}>
+                                Add User
+                            </button>
+
+                            <button
+                                className="cancel-btn"
+                                onClick={() => setShowAddUser(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
+
         </div>
     );
 };

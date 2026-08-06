@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Search } from "lucide-react";
 import "../css/UsersSidebar.css";
-
+import { socket } from "../services/socket";
 function UsersSidebar({
   selectedUser,
   setSelectedUser,
@@ -18,7 +18,7 @@ function UsersSidebar({
     try {
       const { data } = await axios.get(
         "http://localhost:1222/api/users", {
-        withCredentials: true 
+        withCredentials: true
       }
       );
 
@@ -41,9 +41,19 @@ function UsersSidebar({
   };
 
   useEffect(() => {
+    socket.emit("join", currentUser._id);
+
+    socket.on("contact-added", () => {
+      getUsers();
+    });
+
+    return () => {
+      socket.off("contact-added");
+    };
+  }, []);
+  useEffect(() => {
     getUsers();
   }, []);
-
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -71,8 +81,8 @@ function UsersSidebar({
             <div
               key={user._id}
               className={`user-card ${selectedUser?._id === user._id
-                  ? "active-user"
-                  : ""
+                ? "active-user"
+                : ""
                 }`}
               onClick={() => setSelectedUser(user)}
             >

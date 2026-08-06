@@ -90,7 +90,7 @@ body {
     gap: 12px;
     padding: 0 20px;
     margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
 }
 
 .users-searchs svg {
@@ -118,7 +118,7 @@ body {
     background: #fff;
     border-radius: 22px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .05);
 }
 
 .users-table {
@@ -304,4 +304,106 @@ body {
         height: 40px;
     }
 
+}
+
+/* Dark overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(35, 35, 35, 0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(3px);
+}
+
+/* Modal */
+.add-user-modal {
+    width: 400px;
+    background: #f8f4ea;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(126, 145, 78, 0.2);
+    animation: modalPop 0.25s ease;
+}
+
+.add-user-modal h3 {
+    margin: 0 0 20px;
+    color: #4b4a2c;
+    font-size: 28px;
+    font-family: Georgia, serif;
+    text-align: center;
+}
+
+/* Input */
+.add-user-modal input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d8d1bf;
+    border-radius: 12px;
+    background: #fffdf8;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+}
+
+.add-user-modal input:focus {
+    border-color: #7b9446;
+    box-shadow: 0 0 0 4px rgba(123, 148, 70, 0.18);
+}
+
+/* Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.modal-buttons button {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+/* Add button */
+.add-btn {
+    background: #7b9446;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #657c39;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(123, 148, 70, 0.25);
+}
+
+/* Cancel button */
+.cancel-btn {
+    background: #ece6d5;
+    color: #555;
+}
+
+.cancel-btn:hover {
+    background: #ddd5c0;
+}
+
+/* Animation */
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }

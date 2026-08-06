@@ -51,12 +51,25 @@ function ChatWindow({ selectedUser }) {
             const receiver = msg.receiver.toString();
 
             if (
-                (sender === loggedInUser._id &&
-                    receiver === selectedUser._id) ||
-                (sender === selectedUser._id &&
-                    receiver === loggedInUser._id)
+                selectedUser &&
+                (
+                    (sender === loggedInUser._id &&
+                        receiver === selectedUser._id) ||
+                    (sender === selectedUser._id &&
+                        receiver === loggedInUser._id)
+                )
             ) {
                 setMessages((prev) => [...prev, msg]);
+            }
+
+            if (
+                sender !== loggedInUser._id &&
+                Notification.permission === "granted"
+            ) {
+                new Notification(msg.senderName || "New Message", {
+                    body: msg.message,
+                    icon: "/logo.png",
+                });
             }
         };
 
@@ -132,8 +145,8 @@ function ChatWindow({ selectedUser }) {
                     <div
                         key={msg._id}
                         className={`message ${msg.sender.toString() === loggedInUser._id
-                                ? "sent"
-                                : "received"
+                            ? "sent"
+                            : "received"
                             }`}
                     >
                         <p>{msg.message}</p>

@@ -118,7 +118,6 @@ const getUsers = async (req, res) => {
             message: "User fetched successfull",
             users: users.contacts
         });
-        console.log(users)
 
     } catch (err) {
         return res.status(500).json({
@@ -156,9 +155,20 @@ const addUser = async (req, res) => {
                 message: "User already added."
             });
         }
-
         loggedInUser.contacts.push(userToAdd._id);
+
+        // Add A to B's contacts (if not already present)
+        if (!userToAdd.contacts.includes(loggedInUser._id)) {
+            userToAdd.contacts.push(loggedInUser._id);
+        }
+
         await loggedInUser.save();
+        await userToAdd.save();
+
+        const io = req.app.get("io");
+
+        io.to(loggedInUser._id.toString()).emit("contact-added");
+        io.to(userToAdd._id.toString()).emit("contact-added");
 
         return res.status(200).json({
             success: true,

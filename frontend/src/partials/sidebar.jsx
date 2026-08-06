@@ -13,7 +13,7 @@ import "../css/sidebar.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function Sidebar({ search, setSearch }) {
+function Sidebar( ) {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -69,21 +69,6 @@ function Sidebar({ search, setSearch }) {
 
       </div>
 
-      {!collapsed && (
-        <div className="search-box">
-
-          <Search size={18} />
-
-          <input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-        </div>
-      )}
-
       <div className="menu">
 
         <NavLink
@@ -125,7 +110,7 @@ function Sidebar({ search, setSearch }) {
           <Settings size={22} />
           {!collapsed && <span>Settings</span>}
         </NavLink>
-        <button onClick={handleLogout}>Logout</button>
+        <button className="button" onClick={handleLogout}>Logout</button>
 
       </div>
 
