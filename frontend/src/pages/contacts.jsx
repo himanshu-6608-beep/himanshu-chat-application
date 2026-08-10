@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Plus, Search } from "lucide-react";
 import "../css/contacts.css";
 import { socket } from "../services/socket";
+import adminLogo from "../images/adminlogo.png";
 
 const API_URL = "http://localhost:1222/api";
 const currentUser = JSON.parse(localStorage.getItem("user"))
@@ -150,10 +151,13 @@ const Contacts = () => {
                                         <td>
                                             <div className="table-user">
                                                 <img
-                                                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                                        user.name || "User"
-                                                    )}&background=748d4b&color=fff`}
-                                                    alt={user.name}
+                                                    src={
+                                                        user?.profileImage
+                                                            ? `http://localhost:1222/uploads/${user.profileImage}`
+                                                            : adminLogo
+                                                    }
+                                                    alt="Profile"
+                                                    className="settings-profile-image"
                                                 />
 
                                                 <span>{user.name}</span>

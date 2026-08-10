@@ -1,7 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt"
 import { setUser } from "../services/auth.js"
-
+import upload from "../middlewares/uploads.js";
 const handleSignUp = async (req, res) => {
     try {
         const { email, name, password } = req.body;
@@ -30,6 +30,7 @@ const handleSignUp = async (req, res) => {
         const token = setUser(user)
 
         res.cookie("token", token, {
+            httpOnly:true,
             secure: false,
             sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
@@ -97,6 +98,7 @@ const handleLogin = async (req, res) => {
                 _id: existingUser._id,
                 name: existingUser.name,
                 email: existingUser.email,
+                profileImage:existingUser.profileImage
             },
             token,
         });
@@ -129,7 +131,7 @@ const addUser = async (req, res) => {
     try {
         const { email } = req.body;
 
-        const loggedInUser = await User.findById(req.user._id);
+        const addUser = await User.findById(req.user._id);
 
         const userToAdd = await User.findOne({ email });
 
@@ -140,31 +142,31 @@ const addUser = async (req, res) => {
             });
         }
 
-        if (loggedInUser._id.equals(userToAdd._id)) {
+        if (addUser._id.equals(userToAdd._id)) {
             return res.status(400).json({
                 success: false,
                 message: "You cannot add yourself."
             });
         }
 
-        if (loggedInUser.contacts.includes(userToAdd._id)) {
+        if (addUser.contacts.includes(userToAdd._id)) {
             return res.status(400).json({
                 success: false,
                 message: "User already added."
             });
         }
-        loggedInUser.contacts.push(userToAdd._id);
+        addUser.contacts.push(userToAdd._id);
 
-        if (!userToAdd.contacts.includes(loggedInUser._id)) {
-            userToAdd.contacts.push(loggedInUser._id);
+        if (!userToAdd.contacts.includes(addUser._id)) {
+            userToAdd.contacts.push(addUser._id);
         }
 
-        await loggedInUser.save();
+        await addUser.save();
         await userToAdd.save();
 
         const io = req.app.get("io");
 
-        io.to(loggedInUser._id.toString()).emit("contact-added");
+        io.to(addUser._id.toString()).emit("contact-added");
         io.to(userToAdd._id.toString()).emit("contact-added");
 
         return res.status(200).json({
@@ -203,24 +205,74 @@ const handleLogOut = async (req, res) => {
     }
 };
 
-const handleImage = async (req, res) => {
-
+const handleChangePassword = async (req, res) => {
     try {
+        const {
+            id,
+            oldPassword,
+            newPassword,
+        } = req.body;
 
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({
+                message: "Fill all fields",
+            });
+        }
+
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        const currentPassword = await bcrypt.compare(
+            oldPassword,
+            user.password
+        );
+
+        if (!currentPassword) {
+            return res.status(400).json({
+                message: "Incorrect old password",
+            });
+        }
+
+        const newPass = await bcrypt.hash(newPassword, 10);
+
+        user.password = newPass;
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Password updated successfully",
+        });
+
+    } catch (err) {
+        console.error(err);
+
+        return res.status(500).json({
+            message: "Server error",
+        });
+    }
+};
+const updateProfile = async (req, res) => {
+    try {
         const { name, email } = req.body;
-        const data = {}
+        const data = {};
         if (name) data.name = name;
         if (email) data.email = email;
         if (req.file) {
-            data.profileImage = req.file.filename
+            data.profileImage = req.file.filename;
         }
-
-        const updateUser = await User.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
             req.params.id,
             data,
             { new: true }
-        )
-        if (!updateUser) {
+        );
+
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: "User not found",
@@ -230,20 +282,23 @@ const handleImage = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Profile updated successfully",
-            updateUser,
+            user,
         });
-    } catch (error) {
+    } catch (err) {
+        console.log(err);
+
         res.status(500).json({
             success: false,
-            message: "Server Error"
-        })
+            message: err.message,
+        });
     }
-}
+};
 export default {
     handleSignUp,
     handleLogin,
     getUsers,
     addUser,
     handleLogOut,
-    handleImage
+    handleChangePassword,
+    updateProfile,
 }

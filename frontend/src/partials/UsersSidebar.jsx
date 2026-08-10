@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { Search } from "lucide-react";
 import "../css/UsersSidebar.css";
 import { socket } from "../services/socket";
+import adminLogo from "../images/adminlogo.png";
+
 function UsersSidebar({
   selectedUser,
   setSelectedUser,
@@ -88,11 +90,15 @@ function UsersSidebar({
             >
               <div className="user-avatar">
                 <img
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    user.name
-                  )}&background=748d4b&color=ffffff`}
-                  alt={user.name}
+                  src={
+                    user?.profileImage
+                      ? `http://localhost:1222/uploads/${user.profileImage}`
+                      : adminLogo
+                  }
+                  alt="Profile"
+                  className="settings-profile-image"
                 />
+
 
                 <span className="online-dot"></span>
               </div>

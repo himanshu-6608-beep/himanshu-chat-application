@@ -6,6 +6,7 @@ import SocketRoutes from "./routes/socketRoutes.js";
 import { applyMiddleware } from "./middlewares/user.js";
 import { connectDB } from "./config/connect.js";
 import Messages from "./models/messages.js";
+import path from "path";
 
 const app = express();
 const server = http.createServer(app);

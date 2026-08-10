@@ -91,7 +91,7 @@ function Sidebar( ) {
           {!collapsed && <span>Contacts</span>}
         </NavLink>
 
-        <NavLink
+        {/* <NavLink
           to="/notifications"
           className={({ isActive }) =>
             `menu-item ${isActive ? "active" : ""}`
@@ -99,7 +99,7 @@ function Sidebar( ) {
         >
           <Bell size={22} />
           {!collapsed && <span>Notifications</span>}
-        </NavLink>
+        </NavLink> */}
 
         <NavLink
           to="/settings"

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Send } from "lucide-react";
 import "../css/chatwindow.css";
 import logo from "../images/ChatGPT_Image_Jul_30__2026__11_05_27_AM-removebg-preview.png";
-
+import adminLogo from "../images/adminlogo.png"
 function ChatWindow({ selectedUser }) {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
@@ -122,13 +122,9 @@ function ChatWindow({ selectedUser }) {
     return (
         <div className="chat-window">
             <div className="chat-header">
+
                 <div className="chat-user">
-                    <img
-                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-                            selectedUser.name
-                        )}&background=748d4b&color=ffffff`}
-                        alt={selectedUser.name}
-                    />
+                    <img src={selectedUser?.profileImage ? `http://localhost:1222/uploads/${selectedUser.profileImage}` : adminLogo} alt={selectedUser.name || "Profile"} className="settings-profile-image" />
 
                     <div className="chat-user-info">
                         <h3>{selectedUser.name}</h3>
