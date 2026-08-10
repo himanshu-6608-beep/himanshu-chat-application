@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Search } from "lucide-react";
+import { Search, Users } from "lucide-react";
 import "../css/UsersSidebar.css";
 import { socket } from "../services/socket";
 import adminLogo from "../images/adminlogo.png";
@@ -13,53 +13,47 @@ function UsersSidebar({
   setSearch,
 }) {
   const [users, setUsers] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [debouncing, setDebouncing] = useState("");
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
-  const getUsers = async () => {
+  const handleGetUser = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:1222/api/users", {
-        withCredentials: true
-      }
+
+      const response = await axios.get(
+        `http://localhost:1222/api/userfilter`,
+        {
+          params: {
+            search: debouncing,
+            page: currentPage,
+            limit: 10
+          },
+          withCredentials: true
+        }
       );
 
-      const allUsers = data.users || data;
 
-      setUsers(
-        allUsers.filter(
-          (user) => user._id !== currentUser._id
-        )
-      );
-    } catch (error) {
-      console.log(error);
+      setUsers(response.data.users || []);
+      setTotalPages(response.data.totalPages || 1);
 
-      Swal.fire({
-        title: "Failed to load users",
-        text: "Unable to fetch users.",
-        icon: "error",
-      });
+    } catch (err) {
+      console.error("Get contacts error:", err.response?.data || err);
+      setUsers([]);
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncing(search);
+      setCurrentPage(1);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
-    socket.emit("join", currentUser._id);
-
-    socket.on("contact-added", () => {
-      getUsers();
-    });
-
-    return () => {
-      socket.off("contact-added");
-    };
-  }, []);
-  useEffect(() => {
-    getUsers();
-  }, []);
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase())
-  );
-
+    handleGetUser();
+  }, [debouncing, currentPage]);
   return (
     <div className="users-panel">
       <div className="users-header">
@@ -78,8 +72,8 @@ function UsersSidebar({
       </div>
 
       <div className="users-list">
-        {filteredUsers.length ? (
-          filteredUsers.map((user) => (
+        {users.length ? (
+          users.map((user) => (
             <div
               key={user._id}
               className={`user-card ${selectedUser?._id === user._id

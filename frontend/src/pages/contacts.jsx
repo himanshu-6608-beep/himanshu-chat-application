@@ -16,49 +16,58 @@ const Contacts = () => {
     const [addUser, setAddUser] = useState({
         email: ""
     })
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [debouncing, setDebouncing] = useState("");
+
     const [showAddUser, setShowAddUser] = useState(false)
+    const getToken = () => localStorage.getItem("token");
+    const authConfig = () => ({
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+  
     const handleGetUser = async () => {
         try {
             setLoading(true);
 
-            const response = await axios.get(`${API_URL}/users`, {
-                withCredentials: true,
-            });
+            const response = await axios.get(
+                `${API_URL}/userfilter`,
+                {
+                    params: {
+                        search: debouncing,
+                        page: currentPage,
+                        limit: 10
+                    },
+                    withCredentials: true
+                }
+            );
 
-            if (response.status === 200) {
-                setUsers(response.data.users || []);
-            } else {
-                Swal.fire({
-                    title: "Something went wrong",
-                    text: "Unable to fetch users.",
-                    icon: "error",
-                });
-            }
-        } catch (error) {
-            Swal.fire({
-                title: "Failed to fetch users",
-                text: error.response?.data?.message || error.message,
-                icon: "error",
-            });
+            console.log("Contacts:", response.data);
+
+            setUsers(response.data.users || []);
+            setTotalPages(response.data.totalPages || 1);
+
+        } catch (err) {
+            console.error("Get contacts error:", err.response?.data || err);
+            setUsers([]);
         } finally {
             setLoading(false);
         }
     };
-
     useEffect(() => {
-        socket.emit("join", currentUser._id);
+        const timer = setTimeout(() => {
+            setDebouncing(search);
+            setCurrentPage(1);
+        }, 500);
 
-        socket.on("contact-added", () => {
-            handleGetUser()
-        });
+        return () => clearTimeout(timer);
+    }, [search]);
 
-        return () => {
-            socket.off("contact-added");
-        };
-    }, []);
     useEffect(() => {
         handleGetUser();
-    }, []);
+    }, [debouncing, currentPage]);
 
     const handleAddUser = async () => {
         try {
@@ -88,11 +97,6 @@ const Contacts = () => {
             });
         }
     };
-    const filteredUsers = useMemo(() => {
-        return users.filter((user) =>
-            user.name?.toLowerCase().includes(search.toLowerCase())
-        );
-    }, [users, search]);
 
     return (
         <div className="contacts-container">
@@ -143,8 +147,8 @@ const Contacts = () => {
                                         Loading users...
                                     </td>
                                 </tr>
-                            ) : filteredUsers.length > 0 ? (
-                                filteredUsers.map((user, index) => (
+                            ) : users.length > 0 ? (
+                                users.map((user, index) => (
                                     <tr key={user._id}>
                                         <td>{index + 1}.</td>
 

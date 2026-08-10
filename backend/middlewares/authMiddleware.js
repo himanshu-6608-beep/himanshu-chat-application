@@ -9,7 +9,6 @@ const authMiddleware = (req, res, next) => {
     }
     try {
         const user = getUser(token);
-        console.log("Decoded User:", user);
 
         req.user = user;
         next();

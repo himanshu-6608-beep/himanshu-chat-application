@@ -30,10 +30,9 @@ io.on("connection", (socket) => {
   console.log("Connected:", socket.id);
 
   socket.on("join", (userId) => {
-    socket.join(userId);
-    console.log(`${userId} joined room`);
+    socket.join(userId.toString());
   });
-
+  
   socket.on("send-message", async (data) => {
     try {
       const { sender, receiver, message } = data;

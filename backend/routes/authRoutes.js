@@ -10,6 +10,7 @@ router.get("/users", authMiddleware, authControllers.getUsers);
 router.post("/adduser", authMiddleware, authControllers.addUser);
 router.post("/logout", authControllers.handleLogOut);
 router.patch("/passwordchange", authControllers.handleChangePassword)
+router.get("/userfilter", authMiddleware, authControllers.handleFilter);
 router.put("/profile/:id",
     upload.single("profileImage"),
     authControllers.updateProfile

@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt"
 import { setUser } from "../services/auth.js"
 import upload from "../middlewares/uploads.js";
+
 const handleSignUp = async (req, res) => {
     try {
         const { email, name, password } = req.body;
@@ -30,7 +31,7 @@ const handleSignUp = async (req, res) => {
         const token = setUser(user)
 
         res.cookie("token", token, {
-            httpOnly:true,
+            httpOnly: true,
             secure: false,
             sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
@@ -98,7 +99,7 @@ const handleLogin = async (req, res) => {
                 _id: existingUser._id,
                 name: existingUser.name,
                 email: existingUser.email,
-                profileImage:existingUser.profileImage
+                profileImage: existingUser.profileImage
             },
             token,
         });
@@ -293,6 +294,71 @@ const updateProfile = async (req, res) => {
         });
     }
 };
+const handleFilter = async (req, res) => {
+    try {
+        const {
+            search = "",
+            page = 1,
+            limit = 10
+        } = req.query;
+
+        const currentUser = await User.findById(req.user._id)
+            .populate({
+                path: "contacts",
+                select: "-password",
+                match: search.trim()
+                    ? {
+                        $or: [
+                            {
+                                name: {
+                                    $regex: search.trim(),
+                                    $options: "i"
+                                }
+                            },
+                            {
+                                email: {
+                                    $regex: search.trim(),
+                                    $options: "i"
+                                }
+                            }
+                        ]
+                    }
+                    : {}
+            });
+
+        if (!currentUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        const contacts = currentUser.contacts || [];
+
+        const totalUsers = contacts.length;
+
+        const startIndex = (Number(page) - 1) * Number(limit);
+        const endIndex = startIndex + Number(limit);
+
+        const users = contacts.slice(startIndex, endIndex);
+
+        return res.status(200).json({
+            success: true,
+            message: "Contacts fetched successfully",
+            users,
+            totalUsers,
+            totalPages: Math.ceil(totalUsers / Number(limit))
+        });
+
+    } catch (err) {
+        console.error("Contact filter error:", err);
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
+    }
+};
 export default {
     handleSignUp,
     handleLogin,
@@ -301,4 +367,5 @@ export default {
     handleLogOut,
     handleChangePassword,
     updateProfile,
+    handleFilter
 }

@@ -35,9 +35,6 @@ function Sidebar( ) {
       })
       localStorage.removeItem("user")
       localStorage.removeItem("token")
-      localStorage.removeItem("email")
-      localStorage.removeItem("password")
-      localStorage.removeItem("role")
       
       navigate("/")
     } catch (error) {
