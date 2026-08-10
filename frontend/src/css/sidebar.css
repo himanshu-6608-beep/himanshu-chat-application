@@ -291,3 +291,27 @@
   }
 
 }
+
+.logout-button {
+  height: 60px;
+  border: none;
+  background-color: rgb(252, 27, 27);
+  color: white;
+  border-radius: 20px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: rgb(220, 0, 0);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}

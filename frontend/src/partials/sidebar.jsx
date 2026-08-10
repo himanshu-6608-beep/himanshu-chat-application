@@ -110,7 +110,7 @@ function Sidebar( ) {
           <Settings size={22} />
           {!collapsed && <span>Settings</span>}
         </NavLink>
-        <button className="button" onClick={handleLogout}>Logout</button>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
 
       </div>
 

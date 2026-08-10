@@ -48,7 +48,7 @@ function Signup() {
 
       Swal.fire("Success", data.message, "success");
 
-      navigate("/");
+      navigate("/messages");
     } catch (err) {
       Swal.fire(
         "Error",

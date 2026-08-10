@@ -9,4 +9,8 @@ router.post("/login", authControllers.handleLogin)
 router.get("/users", authMiddleware, authControllers.getUsers);
 router.post("/adduser", authMiddleware, authControllers.addUser);
 router.post("/logout", authControllers.handleLogOut);
+router.put("/profile/:id",
+    upload.single("profileImage"),
+    usercontroller.updateProfile
+)
 export default router;

@@ -30,7 +30,6 @@ const handleSignUp = async (req, res) => {
         const token = setUser(user)
 
         res.cookie("token", token, {
-            httpOnly: true,
             secure: false,
             sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
@@ -85,7 +84,6 @@ const handleLogin = async (req, res) => {
         const token = setUser(existingUser);
 
         res.cookie("token", token, {
-            httpOnly: true,
             secure: false,
             sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
@@ -157,7 +155,6 @@ const addUser = async (req, res) => {
         }
         loggedInUser.contacts.push(userToAdd._id);
 
-        // Add A to B's contacts (if not already present)
         if (!userToAdd.contacts.includes(loggedInUser._id)) {
             userToAdd.contacts.push(loggedInUser._id);
         }
@@ -206,10 +203,47 @@ const handleLogOut = async (req, res) => {
     }
 };
 
+const handleImage = async (req, res) => {
+
+    try {
+
+        const { name, email } = req.body;
+        const data = {}
+        if (name) data.name = name;
+        if (email) data.email = email;
+        if (req.file) {
+            data.profileImage = req.file.filename
+        }
+
+        const updateUser = await User.findByIdAndUpdate(
+            req.params.id,
+            data,
+            { new: true }
+        )
+        if (!updateUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            updateUser,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Server Error"
+        })
+    }
+}
 export default {
     handleSignUp,
     handleLogin,
     getUsers,
     addUser,
-    handleLogOut
+    handleLogOut,
+    handleImage
 }

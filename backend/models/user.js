@@ -36,7 +36,11 @@ const userSchema = new mongoose.Schema({
     contacts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }]
+    }],
+    lastMessageAt: {
+        type: Date,
+        default: null
+    }
 }, {
     timestamps: true
 });

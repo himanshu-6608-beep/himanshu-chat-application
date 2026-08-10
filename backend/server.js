@@ -12,6 +12,8 @@ const server = http.createServer(app);
 
 applyMiddleware(app);
 connectDB();
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 
 const io = new Server(server, {
   cors: {

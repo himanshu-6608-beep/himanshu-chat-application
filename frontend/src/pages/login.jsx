@@ -51,7 +51,7 @@ const Login = () => {
 
       Swal.fire("Success", data.message, "success");
 
-      navigate("/chat");
+      navigate("/messages");
     } catch (err) {
       Swal.fire(
         "Error",
