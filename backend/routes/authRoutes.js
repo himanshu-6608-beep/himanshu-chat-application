@@ -8,10 +8,10 @@ router.post("/signup", authControllers.handleSignUp)
 router.post("/login", authControllers.handleLogin)
 router.get("/users", authMiddleware, authControllers.getUsers);
 router.post("/adduser", authMiddleware, authControllers.addUser);
-router.post("/logout", authControllers.handleLogOut);
-router.patch("/passwordchange", authControllers.handleChangePassword)
+router.post("/logout",authMiddleware,authControllers.handleLogOut);
+router.patch("/passwordchange", authMiddleware,authControllers.handleChangePassword)
 router.get("/userfilter", authMiddleware, authControllers.handleFilter);
-router.put("/profile/:id",
+router.put("/profile/:id",authMiddleware,
     upload.single("profileImage"),
     authControllers.updateProfile
 )

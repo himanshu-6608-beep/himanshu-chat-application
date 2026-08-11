@@ -27,7 +27,7 @@ const Contacts = () => {
             Authorization: `Bearer ${getToken()}`
         }
     });
-  
+
     const handleGetUser = async () => {
         try {
             setLoading(true);
@@ -35,16 +35,15 @@ const Contacts = () => {
             const response = await axios.get(
                 `${API_URL}/userfilter`,
                 {
+                    ...authConfig(),
                     params: {
                         search: debouncing,
                         page: currentPage,
                         limit: 10
-                    },
-                    withCredentials: true
-                }
+                    }
+                },
             );
 
-            console.log("Contacts:", response.data);
 
             setUsers(response.data.users || []);
             setTotalPages(response.data.totalPages || 1);
@@ -77,8 +76,9 @@ const Contacts = () => {
                     email: addUser.email,
                 },
                 {
+                    ...authConfig(),
                     withCredentials: true,
-                }
+                },
             );
 
             Swal.fire({

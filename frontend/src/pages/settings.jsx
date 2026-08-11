@@ -4,7 +4,7 @@ import "../css/settings.css";
 import adminLogo from "../images/adminlogo.png";
 import Swal from "sweetalert2";
 import axios from "axios";
-import {socket} from "../services/socket.js"
+import { socket } from "../services/socket.js"
 const Settings = () => {
     const [showModel, setShowModel] = useState(false);
     const [showUpdateProfile, setShowUpdateProfile] = useState(false);
@@ -19,7 +19,12 @@ const Settings = () => {
     const [name, setName] = useState(user?.name || "");
     const [email, setEmail] = useState(user?.email || "");
     const [image, setImage] = useState(null);
-
+    const getToken = () => localStorage.getItem("token");
+    const authConfig = () => ({
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
     // =========================
     // CHANGE PASSWORD
     // =========================
@@ -107,7 +112,8 @@ const Settings = () => {
         try {
             const response = await axios.put(
                 `http://localhost:1222/api/profile/${user._id}`,
-                formData
+                formData,
+                authConfig()
             );
 
             Swal.fire({

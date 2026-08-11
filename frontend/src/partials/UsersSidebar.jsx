@@ -17,19 +17,24 @@ function UsersSidebar({
   const [totalPages, setTotalPages] = useState(1);
   const [debouncing, setDebouncing] = useState("");
   const currentUser = JSON.parse(localStorage.getItem("user"));
-
+  const getToken = () => localStorage.getItem("token");
+  const authConfig = () => ({
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  });
   const handleGetUser = async () => {
     try {
 
       const response = await axios.get(
-        `http://localhost:1222/api/userfilter`,
+        "http://localhost:1222/api/userfilter",
         {
+          ...authConfig(),
           params: {
             search: debouncing,
             page: currentPage,
             limit: 10
-          },
-          withCredentials: true
+          }
         }
       );
 

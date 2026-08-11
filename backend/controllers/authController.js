@@ -28,15 +28,6 @@ const handleSignUp = async (req, res) => {
             email,
             password: hashedPassword
         })
-        const token = setUser(user)
-
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 24 * 60 * 60 * 1000,
-            path: "/"
-        })
 
         return res.status(200).json({
             success: true,
@@ -101,7 +92,7 @@ const handleLogin = async (req, res) => {
                 email: existingUser.email,
                 profileImage: existingUser.profileImage
             },
-            token,
+            token
         });
     } catch (err) {
         return res.status(500).json({
@@ -130,6 +121,7 @@ const getUsers = async (req, res) => {
 
 const addUser = async (req, res) => {
     try {
+        const loggedInUser = req.user;
         const { email } = req.body;
 
         const addUser = await User.findById(req.user._id);

@@ -66,7 +66,7 @@ function ChatWindow({ selectedUser }) {
                 sender !== loggedInUser._id &&
                 Notification.permission === "granted"
             ) {
-                new Notification(msg.senderName || "New Message", {
+                new Notification("New Message", {
                     body: msg.message,
                     icon: "/logo.png",
                 });

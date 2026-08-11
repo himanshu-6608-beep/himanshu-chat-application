@@ -13,14 +13,22 @@ import "../css/sidebar.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function Sidebar( ) {
+function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const getToken = () => localStorage.getItem("token");
+  const authConfig = () => ({
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  });
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:1222/api/logout")
+      const response = await axios.post("http://localhost:1222/api/logout",
+        {},
+        authConfig()
+      )
 
       if (response.status !== 200) {
         Swal.fire({
@@ -35,7 +43,7 @@ function Sidebar( ) {
       })
       localStorage.removeItem("user")
       localStorage.removeItem("token")
-      
+
       navigate("/")
     } catch (error) {
       Swal.fire({
