@@ -1,4 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 * {
     margin: 0;
@@ -8,93 +12,139 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background: #f6f2e8;
+    background: #fafaff;
+    color: #252941;
 }
+
+/* =========================================================
+   CONTACTS CONTAINER
+========================================================= */
 
 .contacts-container {
     display: flex;
     width: 100%;
     min-height: 100vh;
-    background: #f6f2e8;
+    background: #fafaff;
+    overflow: hidden;
 }
 
-/* ===========================
-        USERS PANEL
-=========================== */
+/* =========================================================
+   USERS PANEL
+========================================================= */
 
 .users-panels {
     flex: 1;
     padding: 30px;
+    min-width: 0;
+    min-height: 0;
     overflow-y: auto;
+    background: #fafaff;
 }
 
-/* ===========================
-          HEADER
-=========================== */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .users-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 .users-header h2 {
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 700;
-    color: #2f3b20;
-    font-family: "Playfair Display", serif;
+    color: #171b38;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: -0.8px;
 }
+
+.users-header h2::first-letter {
+    color: #7c3aed;
+}
+
+/* =========================================================
+   USERS COUNT
+========================================================= */
 
 .users-count {
     margin-top: 6px;
-    display: inline-block;
-    background: #eef2e3;
-    color: #748d4b;
-    padding: 6px 14px;
+    display: inline-flex;
+    align-items: center;
+    background: #f1eaff;
+    color: #6d28d9;
+    padding: 6px 13px;
     border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
 }
 
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
 .add-btn {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     border: none;
-    border-radius: 14px;
-    background: #748d4b;
-    color: white;
+    outline: none;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        #6d28d9,
+        #7c3aed,
+        #a855f7
+    );
+    color: #ffffff;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: .3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.2);
 }
 
 .add-btn:hover {
-    background: #5d723d;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 13px 28px rgba(124, 58, 237, 0.3);
 }
 
-/* ===========================
-         SEARCH BAR
-=========================== */
+.add-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   SEARCH BAR
+========================================================= */
 
 .users-searchs {
     width: 100%;
-    height: 58px;
-    background: #fff;
-    border-radius: 18px;
+    height: 56px;
+    background: #ffffff;
+    border: 1px solid #eeeaf5;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 0 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+    padding: 0 18px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 25px rgba(40, 25, 80, 0.045);
+    transition: all 0.3s ease;
+}
+
+.users-searchs:focus-within {
+    border-color: #a78bfa;
+    box-shadow:
+        0 0 0 4px rgba(124, 58, 237, 0.07),
+        0 8px 25px rgba(40, 25, 80, 0.05);
 }
 
 .users-searchs svg {
-    color: #748d4b;
+    width: 19px;
+    height: 19px;
+    color: #7c3aed;
+    flex-shrink: 0;
 }
 
 .users-searchs input {
@@ -102,152 +152,425 @@ body {
     border: none;
     outline: none;
     background: transparent;
-    font-size: 15px;
-    color: #444;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: #272b45;
 }
 
 .users-searchs input::placeholder {
-    color: #999;
+    color: #969aad;
 }
 
-/* ===========================
-          TABLE
-=========================== */
+/* =========================================================
+   USERS LIST / TABLE CONTAINER
+========================================================= */
 
 .users-lists {
-    background: #fff;
-    border-radius: 22px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, .05);
+    background: #ffffff;
+    border: 1px solid #eeeaf5;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(40, 25, 80, 0.055);
+    max-height: calc(100vh - 235px);
+    overflow-y: auto;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbb9e3 #f7f5fa;
 }
+
+/* =========================================================
+   TABLE SCROLLBAR
+========================================================= */
+
+.users-lists::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.users-lists::-webkit-scrollbar-track {
+    background: #f7f5fa;
+    border-radius: 20px;
+}
+
+.users-lists::-webkit-scrollbar-thumb {
+    background: #cbb9e3;
+    border-radius: 20px;
+}
+
+.users-lists::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
 
 .users-table {
     width: 100%;
     border-collapse: collapse;
 }
 
+/* =========================================================
+   STICKY HEADER
+========================================================= */
+
 .users-table thead {
-    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #ffffff;
 }
 
 .users-table th {
     text-align: left;
-    padding: 22px 25px;
-    font-size: 15px;
+    padding: 18px 24px;
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
     font-weight: 600;
-    color: #555;
-    border-bottom: 1px solid #ececec;
+    color: #85899a;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eeeaf5;
+    background: #ffffff;
+    white-space: nowrap;
 }
 
 .users-table td {
-    padding: 18px 25px;
-    border-bottom: 1px solid #f3f3f3;
-    color: #555;
-    font-size: 15px;
+    padding: 15px 24px;
+    border-bottom: 1px solid #f2eff6;
+    color: #656a7d;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
 }
 
 .users-table tbody tr {
-    transition: .25s;
+    transition: all 0.25s ease;
 }
 
 .users-table tbody tr:hover {
-    background: #f8faf3;
+    background: #faf8ff;
 }
 
 .users-table tbody tr:last-child td {
     border-bottom: none;
+    padding-bottom: 24px;
 }
 
-/* ===========================
-       USER COLUMN
-=========================== */
+/* =========================================================
+   USER COLUMN
+========================================================= */
 
 .table-user {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 13px;
 }
 
 .table-user img {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     object-fit: cover;
+    border: 3px solid #f0e8ff;
+    background: #f5efff;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
 }
 
 .table-user span {
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
-    color: #2f3b20;
+    color: #252941;
+    white-space: nowrap;
 }
 
-/* ===========================
-         STATUS
-=========================== */
+/* =========================================================
+   EMAIL
+========================================================= */
+
+.users-table td:nth-child(2) {
+    color: #74798c;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 .status-wrapper {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #f7f7f9;
+    font-size: 11px;
+    font-weight: 500;
 }
 
 .status {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .online {
     background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
 
 .offline {
-    background: #cfcfcf;
+    background: #aeb2bd;
 }
 
-/* ===========================
-        EMPTY STATE
-=========================== */
+/* =========================================================
+   EMPTY STATE
+========================================================= */
 
 .empty-users {
     text-align: center;
-    padding: 40px;
-    color: #999;
-    font-size: 15px;
+    padding: 70px 40px;
+    color: #8b90a2;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
 }
 
-/* ===========================
-        SCROLLBAR
-=========================== */
+.empty-users::before {
+    content: "👥";
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1eaff;
+    border-radius: 50%;
+    font-size: 26px;
+}
+
+/* =========================================================
+   PANEL SCROLLBAR
+========================================================= */
+
+.users-panels {
+    scrollbar-width: thin;
+    scrollbar-color: #d8cbe8 #f7f5fa;
+}
 
 .users-panels::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
 }
 
-.users-panels::-webkit-scrollbar-thumb {
-    background: #d6ddbf;
+.users-panels::-webkit-scrollbar-track {
+    background: #f7f5fa;
     border-radius: 20px;
 }
 
-/* ===========================
-        RESPONSIVE
-=========================== */
+.users-panels::-webkit-scrollbar-thumb {
+    background: #d8cbe8;
+    border-radius: 20px;
+}
 
-@media (max-width:1100px) {
+.users-panels::-webkit-scrollbar-thumb:hover {
+    background: #a78bfa;
+}
 
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 15, 40, 0.42);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(6px);
+}
+
+/* =========================================================
+   ADD USER MODAL
+========================================================= */
+
+.add-user-modal {
+    width: 410px;
+    max-width: calc(100% - 30px);
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow:
+        0 30px 80px rgba(30, 20, 70, 0.2),
+        0 10px 30px rgba(30, 20, 70, 0.08);
+    border: 1px solid #eee8f7;
+    animation: modalPop 0.3s ease;
+}
+
+.add-user-modal h3 {
+    margin: 0 0 24px;
+    color: #171b38;
+    font-size: 24px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* =========================================================
+   MODAL INPUT
+========================================================= */
+
+.add-user-modal input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border: 1px solid #e4ddef;
+    border-radius: 14px;
+    background: #f9f8fb;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: #272b45;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.add-user-modal input::placeholder {
+    color: #9b9eac;
+}
+
+.add-user-modal input:hover {
+    border-color: #d1c0e7;
+    background: #ffffff;
+}
+
+.add-user-modal input:focus {
+    background: #ffffff;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.08);
+}
+
+/* =========================================================
+   MODAL BUTTONS
+========================================================= */
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.modal-buttons button {
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 12px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* =========================================================
+   MODAL ADD BUTTON
+========================================================= */
+
+.modal-buttons .add-btn {
+    width: auto;
+    min-width: 90px;
+    height: 44px;
+    padding: 0 20px;
+    background: linear-gradient(
+        135deg,
+        #6d28d9,
+        #7c3aed,
+        #a855f7
+    );
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(124, 58, 237, 0.18);
+}
+
+.modal-buttons .add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(124, 58, 237, 0.25);
+}
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.cancel-btn {
+    background: #f4f2f7;
+    color: #62677a;
+}
+
+.cancel-btn:hover {
+    background: #eae6f0;
+    color: #35394d;
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   MODAL ANIMATION
+========================================================= */
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* =========================================================
+   TABLE ROW ANIMATION
+========================================================= */
+
+.users-table tbody tr {
+    animation: tableRow 0.35s ease forwards;
+}
+
+@keyframes tableRow {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
     .contacts-container {
         flex-direction: column;
+        overflow: auto;
     }
 
     .users-panels {
-        padding: 20px;
+        padding: 24px;
     }
 
+    .users-lists {
+        max-height: none;
+    }
 }
 
-@media (max-width:900px) {
+/* =========================================================
+   RESPONSIVE - 900px
+========================================================= */
 
+@media (max-width: 900px) {
     .users-header h2 {
-        font-size: 28px;
+        font-size: 27px;
     }
 
     .users-searchs {
@@ -256,154 +579,128 @@ body {
 
     .users-table th,
     .users-table td {
-        padding: 15px;
-        font-size: 14px;
+        padding: 14px 17px;
+        font-size: 12px;
     }
 
     .table-user img {
         width: 42px;
         height: 42px;
     }
-
 }
 
-@media (max-width:768px) {
+/* =========================================================
+   RESPONSIVE - 768px
+========================================================= */
+
+@media (max-width: 768px) {
+    .users-panels {
+        padding: 18px;
+    }
 
     .users-lists {
+        height: 500px;
+        max-height: 500px;
         overflow-x: auto;
+        overflow-y: auto;
+        border-radius: 17px;
     }
 
     .users-table {
-        min-width: 750px;
+        min-width: 720px;
     }
 
+    .users-header {
+        margin-bottom: 17px;
+    }
+
+    .users-header h2 {
+        font-size: 25px;
+    }
+
+    .users-count {
+        font-size: 11px;
+        padding: 5px 11px;
+    }
 }
 
-@media (max-width:600px) {
+/* =========================================================
+   RESPONSIVE - 600px
+========================================================= */
 
+@media (max-width: 600px) {
     .users-panels {
         padding: 15px;
     }
 
     .users-header {
-        margin-bottom: 18px;
+        margin-bottom: 15px;
     }
 
     .users-header h2 {
-        font-size: 24px;
-    }
-
-    .users-searchs {
-        height: 48px;
-        padding: 0 15px;
-        margin-bottom: 18px;
+        font-size: 23px;
     }
 
     .add-btn {
         width: 40px;
         height: 40px;
+        border-radius: 12px;
     }
 
-}
-
-/* Dark overlay */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(35, 35, 35, 0.35);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    backdrop-filter: blur(3px);
-}
-
-/* Modal */
-.add-user-modal {
-    width: 400px;
-    background: #f8f4ea;
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
-    border: 1px solid rgba(126, 145, 78, 0.2);
-    animation: modalPop 0.25s ease;
-}
-
-.add-user-modal h3 {
-    margin: 0 0 20px;
-    color: #4b4a2c;
-    font-size: 28px;
-    font-family: Georgia, serif;
-    text-align: center;
-}
-
-/* Input */
-.add-user-modal input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #d8d1bf;
-    border-radius: 12px;
-    background: #fffdf8;
-    font-size: 15px;
-    outline: none;
-    transition: all 0.25s ease;
-    box-sizing: border-box;
-}
-
-.add-user-modal input:focus {
-    border-color: #7b9446;
-    box-shadow: 0 0 0 4px rgba(123, 148, 70, 0.18);
-}
-
-/* Buttons */
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 22px;
-}
-
-.modal-buttons button {
-    padding: 11px 22px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.25s;
-}
-
-/* Add button */
-.add-btn {
-    background: #7b9446;
-    color: white;
-}
-
-.add-btn:hover {
-    background: #657c39;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(123, 148, 70, 0.25);
-}
-
-/* Cancel button */
-.cancel-btn {
-    background: #ece6d5;
-    color: #555;
-}
-
-.cancel-btn:hover {
-    background: #ddd5c0;
-}
-
-/* Animation */
-@keyframes modalPop {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(15px);
+    .users-searchs {
+        height: 48px;
+        padding: 0 15px;
+        margin-bottom: 16px;
+        border-radius: 14px;
     }
 
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
+    .users-searchs input {
+        font-size: 12px;
+    }
+
+    .users-lists {
+        height: 450px;
+        max-height: 450px;
+        border-radius: 16px;
+    }
+
+    .add-user-modal {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .add-user-modal h3 {
+        font-size: 21px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - 400px
+========================================================= */
+
+@media (max-width: 400px) {
+    .users-panels {
+        padding: 12px;
+    }
+
+    .users-header h2 {
+        font-size: 21px;
+    }
+
+    .users-count {
+        font-size: 10px;
+    }
+
+    .users-searchs {
+        margin-bottom: 13px;
+    }
+
+    .users-lists {
+        height: 420px;
+        max-height: 420px;
+    }
+
+    .users-table {
+        min-width: 680px;
     }
 }

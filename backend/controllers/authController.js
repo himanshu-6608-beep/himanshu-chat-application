@@ -33,7 +33,6 @@ const handleSignUp = async (req, res) => {
             success: true,
             message: "User Created successfully",
             user,
-            token
         })
 
 
@@ -103,7 +102,7 @@ const handleLogin = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await User.findById(req.user._id).populate("contacts", "-password");
+        const users = await User.findById(req.user._id).populate("contacts", "-password").sort({ createdAt: -1 })
 
         return res.status(200).json({
             success: true,
@@ -121,7 +120,6 @@ const getUsers = async (req, res) => {
 
 const addUser = async (req, res) => {
     try {
-        const loggedInUser = req.user;
         const { email } = req.body;
 
         const addUser = await User.findById(req.user._id);
@@ -213,7 +211,7 @@ const handleChangePassword = async (req, res) => {
             });
         }
 
-        const user = await User.findById(id);
+        const user = await User.findById(req.user._id);
 
         if (!user) {
             return res.status(404).json({
@@ -260,7 +258,7 @@ const updateProfile = async (req, res) => {
             data.profileImage = req.file.filename;
         }
         const user = await User.findByIdAndUpdate(
-            req.params.id,
+            req.user._id,
             data,
             { new: true }
         );

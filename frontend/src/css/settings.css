@@ -1,225 +1,266 @@
-/* =========================
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #fafaff;
+    color: #252941;
+}
+
+/* =========================================================
    MAIN PAGE
-========================= */
+========================================================= */
 
 .settings-page {
     min-height: 100vh;
     display: flex;
-    background: #f8f6ef;
-    color: #243b22;
-    font-family: Arial, Helvetica, sans-serif;
+    background: #fafaff;
+    color: #252941;
+    font-family: "Poppins", sans-serif;
 }
 
-
-/* =========================
+/* =========================================================
    MAIN CONTENT
-========================= */
+========================================================= */
 
 .settings-main {
     flex: 1;
     min-width: 0;
-    padding: 42px 55px;
+    padding: 38px 50px;
     overflow-y: auto;
+    background: #fafaff;
 }
 
-
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 .settings-header {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 .settings-header h1 {
     margin: 0;
-    color: #173b27;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 38px;
+    color: #171b38;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
     font-weight: 700;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.7px;
 }
 
 .settings-header p {
-    margin: 8px 0 0;
-    color: #8b8c83;
-    font-size: 14px;
+    margin: 7px 0 0;
+    color: #8a8fa1;
+    font-size: 13px;
 }
 
-
-/* =========================
+/* =========================================================
    CONTENT
-========================= */
+========================================================= */
 
 .settings-content {
     max-width: 900px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 18px;
 }
 
-
-/* =========================
+/* =========================================================
    CARDS
-========================= */
+========================================================= */
 
 .settings-card {
-    background: #fffefa;
-    border: 1px solid #e9e6da;
-    border-radius: 18px;
-    padding: 28px 30px;
-    box-shadow: 0 5px 18px rgba(67, 79, 45, 0.04);
+    background: #ffffff;
+    border: 1px solid #eeeaf5;
+    border-radius: 20px;
+    padding: 26px 28px;
+    box-shadow: 0 12px 35px rgba(40, 25, 80, 0.045);
+    transition: all 0.3s ease;
 }
+
+.settings-card:hover {
+    box-shadow: 0 16px 40px rgba(40, 25, 80, 0.065);
+}
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
 
 .card-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 22px;
-    border-bottom: 1px solid #eeeade;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eeeaf5;
 }
 
 .card-title h2 {
     margin: 0;
-    color: #203c27;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 23px;
+    color: #20243d;
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .card-title p {
-    margin: 6px 0 0;
-    color: #999b91;
-    font-size: 13px;
+    margin: 5px 0 0;
+    color: #9599a9;
+    font-size: 11px;
 }
 
-
-/* =========================
+/* =========================================================
    PROFILE
-========================= */
+========================================================= */
 
 .profile-section {
     display: flex;
     align-items: center;
-    gap: 22px;
-    padding: 28px 0;
+    gap: 20px;
+    padding: 25px 0;
 }
 
 .profile-image-wrapper {
     position: relative;
-    width: 90px;
-    height: 90px;
+    width: 82px;
+    height: 82px;
     flex-shrink: 0;
 }
 
 .settings-profile-image {
-    width: 90px;
-    height: 90px;
+    width: 82px;
+    height: 82px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #e8eed9;
-    background: #dce7c9;
+    border: 3px solid #eee5fc;
+    background: #f2eaff;
+    box-shadow: 0 8px 22px rgba(124, 58, 237, 0.1);
 }
 
 .profile-online-dot {
     position: absolute;
-    right: 3px;
-    bottom: 5px;
+    right: 2px;
+    bottom: 3px;
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #42c875;
-    border: 3px solid #fffefa;
+    background: #22c55e;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.08);
 }
 
+/* =========================================================
+   PROFILE DETAILS
+========================================================= */
 
 .profile-details h3 {
-    margin: 0 0 7px;
-    color: #263b24;
-    font-size: 20px;
+    margin: 0 0 5px;
+    color: #20243d;
+    font-size: 18px;
     font-weight: 600;
 }
 
 .profile-details p {
-    margin: 0 0 9px;
-    color: #8b8e84;
-    font-size: 14px;
+    margin: 0 0 8px;
+    color: #8c91a1;
+    font-size: 12px;
 }
 
 .profile-status {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #729244;
-    font-size: 12px;
-    font-weight: 500;
+    color: #7c3aed;
+    font-size: 11px;
+    font-weight: 600;
 }
 
 .profile-status span {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #42c875;
+    background: #22c55e;
 }
 
-
-/* =========================
+/* =========================================================
    BUTTON AREA
-========================= */
+========================================================= */
 
 .profile-actions {
-    padding-top: 20px;
-    border-top: 1px solid #eeeade;
+    padding-top: 18px;
+    border-top: 1px solid #eeeaf5;
 }
 
-
-/* =========================
+/* =========================================================
    PRIMARY BUTTON
-========================= */
+========================================================= */
 
 .primary-settings-btn,
 .update-btn {
     border: none;
     border-radius: 12px;
-    background: #789548;
-    color: white;
-    padding: 13px 22px;
-    font-size: 13px;
+    background: linear-gradient(
+        135deg,
+        #6d28d9,
+        #7c3aed,
+        #a855f7
+    );
+    color: #ffffff;
+    padding: 12px 21px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(124, 58, 237, 0.16);
 }
 
 .primary-settings-btn:hover,
 .update-btn:hover {
-    background: #667f3d;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 13px 25px rgba(124, 58, 237, 0.25);
 }
 
+.primary-settings-btn:active,
+.update-btn:active {
+    transform: translateY(0);
+}
 
-/* =========================
+/* =========================================================
    SECURITY
-========================= */
+========================================================= */
 
 .security-row {
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding-top: 25px;
+    gap: 17px;
+    padding-top: 23px;
 }
 
 .security-icon {
     width: 48px;
     height: 48px;
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 13px;
-    background: #eef3df;
+    border-radius: 14px;
+    background: #f1eaff;
+    color: #7c3aed;
     font-size: 20px;
 }
+
+/* =========================================================
+   SECURITY INFO
+========================================================= */
 
 .security-info {
     flex: 1;
@@ -227,40 +268,46 @@
 
 .security-info h3 {
     margin: 0 0 5px;
-    color: #283c27;
-    font-size: 16px;
+    color: #252941;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .security-info p {
     margin: 0;
     max-width: 550px;
-    color: #92948b;
-    font-size: 13px;
-    line-height: 1.5;
+    color: #9296a5;
+    font-size: 11px;
+    line-height: 1.6;
 }
 
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
 .secondary-settings-btn {
-    border: 1px solid #d5ddc4;
-    background: #f8faef;
-    color: #627c3e;
-    border-radius: 10px;
-    padding: 11px 17px;
-    font-size: 12px;
+    border: 1px solid #dfd5ef;
+    background: #faf8ff;
+    color: #7c3aed;
+    border-radius: 11px;
+    padding: 10px 16px;
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .secondary-settings-btn:hover {
-    background: #eaf0dc;
-    border-color: #b9c99b;
+    background: #f1eaff;
+    border-color: #cbb5e9;
+    transform: translateY(-2px);
 }
 
-
-/* =========================
+/* =========================================================
    MODAL OVERLAY
-========================= */
+========================================================= */
 
 .modal-overlay {
     position: fixed;
@@ -273,33 +320,35 @@
 
     padding: 20px;
 
-    background: rgba(29, 43, 28, 0.42);
-    backdrop-filter: blur(4px);
+    background: rgba(25, 20, 50, 0.45);
+    backdrop-filter: blur(6px);
 }
 
-
-/* =========================
+/* =========================================================
    MODAL
-========================= */
+========================================================= */
 
 .settings-modal {
     position: relative;
     width: 100%;
     max-width: 500px;
 
-    background: #fffefa;
-    border-radius: 20px;
-    padding: 32px;
+    background: #ffffff;
+    border: 1px solid #eee8f7;
+    border-radius: 22px;
+    padding: 30px;
 
-    box-shadow: 0 25px 70px rgba(31, 47, 28, 0.2);
+    box-shadow:
+        0 30px 80px rgba(30, 20, 70, 0.2),
+        0 10px 30px rgba(30, 20, 70, 0.08);
 
-    animation: modalOpen 0.2s ease-out;
+    animation: modalOpen 0.25s ease-out;
 }
 
 @keyframes modalOpen {
     from {
         opacity: 0;
-        transform: translateY(10px) scale(0.98);
+        transform: translateY(12px) scale(0.96);
     }
 
     to {
@@ -308,49 +357,48 @@
     }
 }
 
-
-/* =========================
+/* =========================================================
    CLOSE BUTTON
-========================= */
+========================================================= */
 
 .modal-close {
     position: absolute;
-    top: 17px;
-    right: 18px;
+    top: 16px;
+    right: 17px;
 
     width: 34px;
     height: 34px;
 
     border: none;
-    border-radius: 50%;
+    border-radius: 10px;
 
-    background: #f1f3e8;
-    color: #65754b;
+    background: #f4f1f8;
+    color: #777b8e;
 
-    font-size: 24px;
+    font-size: 22px;
     line-height: 1;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .modal-close:hover {
-    background: #e4ead5;
-    color: #344c2e;
+    background: #f1eaff;
+    color: #7c3aed;
+    transform: rotate(90deg);
 }
 
-
-/* =========================
+/* =========================================================
    MODAL HEADING
-========================= */
+========================================================= */
 
 .modal-heading {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 14px;
 
-    margin-bottom: 28px;
+    margin-bottom: 26px;
     padding-right: 35px;
 }
 
@@ -363,76 +411,84 @@
     align-items: center;
     justify-content: center;
 
-    background: #edf2df;
-    border-radius: 13px;
+    background: #f1eaff;
+    color: #7c3aed;
+    border-radius: 14px;
 
     font-size: 20px;
 }
 
 .modal-heading h2 {
     margin: 0;
-    color: #213d28;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 24px;
+    color: #20243d;
+    font-family: "Poppins", sans-serif;
+    font-size: 21px;
+    font-weight: 700;
 }
 
 .modal-heading p {
-    margin: 5px 0 0;
-    color: #96988e;
-    font-size: 12px;
-    line-height: 1.4;
+    margin: 4px 0 0;
+    color: #969aaa;
+    font-size: 11px;
+    line-height: 1.5;
 }
 
-
-/* =========================
+/* =========================================================
    INPUTS
-========================= */
+========================================================= */
 
 .input-group {
-    margin-bottom: 19px;
+    margin-bottom: 17px;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
-    color: #3e5038;
-    font-size: 13px;
+    color: #3d4156;
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
     font-weight: 600;
 }
 
 .input-group input {
     width: 100%;
+    height: 49px;
     box-sizing: border-box;
 
-    border: 1px solid #e1e2d8;
-    border-radius: 10px;
+    border: 1px solid #e3deeb;
+    border-radius: 12px;
 
-    background: #fafaf6;
-    color: #33432e;
+    background: #faf9fc;
+    color: #30344a;
 
-    padding: 13px 14px;
+    padding: 0 14px;
 
     outline: none;
-    font-size: 13px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
 
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .input-group input::placeholder {
-    color: #b0b2aa;
+    color: #a7a9b5;
+}
+
+.input-group input:hover {
+    border-color: #d4c6e5;
+    background: #ffffff;
 }
 
 .input-group input:focus {
-    border-color: #8ca363;
-    background: #fffefa;
-    box-shadow: 0 0 0 3px rgba(120, 149, 72, 0.1);
+    border-color: #8b5cf6;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.08);
 }
 
-
-/* =========================
+/* =========================================================
    FILE INPUT
-========================= */
+========================================================= */
 
 .file-input-wrapper input {
     display: none;
@@ -446,68 +502,72 @@
 
     padding: 13px 14px;
 
-    border: 1px dashed #cbd4b8;
-    border-radius: 10px;
+    border: 1px dashed #cfc0e3;
+    border-radius: 12px;
 
-    background: #fafbf5;
-    color: #79866c;
+    background: #faf8ff;
+    color: #81739a;
 
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
 
-    transition: 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .file-label:hover {
-    background: #f1f5e7;
-    border-color: #9eaf7c;
-    color: #617746;
+    background: #f4edff;
+    border-color: #a78bfa;
+    color: #7c3aed;
 }
 
-
-/* =========================
+/* =========================================================
    MODAL ACTIONS
-========================= */
+========================================================= */
 
 .modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 
-    margin-top: 27px;
-    padding-top: 20px;
+    margin-top: 25px;
+    padding-top: 19px;
 
-    border-top: 1px solid #eeeade;
+    border-top: 1px solid #eeeaf5;
 }
 
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
 .cancel-btn {
-    border: 1px solid #e0e2d8;
-    background: #f8f8f4;
-    color: #777b70;
+    border: 1px solid #e2dfea;
+    background: #f7f6f9;
+    color: #777b8d;
 
-    padding: 12px 20px;
-    border-radius: 10px;
+    padding: 11px 19px;
+    border-radius: 11px;
 
-    font-size: 13px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
     font-weight: 600;
 
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .cancel-btn:hover {
-    background: #eeeeea;
+    background: #eeeaf2;
+    color: #505466;
+    transform: translateY(-1px);
 }
 
-
-/* =========================
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
-@media (max-width: 900px) {
-
+@media (max-width: 1100px) {
     .settings-main {
-        padding: 35px 30px;
+        padding: 35px 35px;
     }
 
     .settings-content {
@@ -515,19 +575,76 @@
     }
 }
 
+/* =========================================================
+   TABLET
+========================================================= */
 
-@media (max-width: 650px) {
-
+@media (max-width: 900px) {
     .settings-main {
-        padding: 25px 18px;
+        padding: 30px 25px;
     }
 
     .settings-header h1 {
-        font-size: 31px;
+        font-size: 28px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+    .settings-main {
+        padding: 24px 16px;
+    }
+
+    .settings-header {
+        margin-bottom: 22px;
+    }
+
+    .settings-header h1 {
+        font-size: 25px;
+    }
+
+    .settings-header p {
+        font-size: 11px;
     }
 
     .settings-card {
-        padding: 22px;
+        padding: 21px;
+        border-radius: 17px;
+    }
+
+    .card-title h2 {
+        font-size: 16px;
+    }
+
+    .card-title p {
+        font-size: 10px;
+    }
+
+    .profile-section {
+        gap: 15px;
+        padding: 21px 0;
+    }
+
+    .profile-image-wrapper,
+    .settings-profile-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .profile-online-dot {
+        width: 13px;
+        height: 13px;
+    }
+
+    .profile-details h3 {
+        font-size: 16px;
+    }
+
+    .profile-details p {
+        font-size: 11px;
     }
 
     .security-row {
@@ -536,15 +653,24 @@
     }
 
     .security-info {
-        min-width: calc(100% - 70px);
+        min-width: calc(100% - 65px);
+    }
+
+    .security-info p {
+        font-size: 10px;
     }
 
     .secondary-settings-btn {
-        margin-left: 66px;
+        margin-left: 65px;
     }
 
     .settings-modal {
         padding: 25px 20px;
+        border-radius: 19px;
+    }
+
+    .modal-heading h2 {
+        font-size: 19px;
     }
 
     .modal-actions {
@@ -553,5 +679,41 @@
 
     .modal-actions button {
         width: 100%;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+    .settings-main {
+        padding: 20px 12px;
+    }
+
+    .settings-card {
+        padding: 18px;
+    }
+
+    .settings-header h1 {
+        font-size: 23px;
+    }
+
+    .profile-image-wrapper,
+    .settings-profile-image {
+        width: 62px;
+        height: 62px;
+    }
+
+    .profile-details h3 {
+        font-size: 14px;
+    }
+
+    .secondary-settings-btn {
+        margin-left: 0;
+    }
+
+    .security-row {
+        gap: 12px;
     }
 }

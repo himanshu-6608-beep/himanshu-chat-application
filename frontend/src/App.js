@@ -3,7 +3,6 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Chat from "./pages/chat";
 import Contacts from "./pages/contacts";
-import Notifications from "./pages/notifications";
 import Settings from "./pages/settings";
 import { useEffect } from "react";
 import ProtectedUser from "./protectRoutes";
@@ -54,14 +53,6 @@ function App() {
           }
         />
 
-        <Route
-          path="/notifications"
-          element={
-            <ProtectedUser>
-              <Notifications />
-            </ProtectedUser>
-          }
-        />
 
         <Route
           path="/settings"

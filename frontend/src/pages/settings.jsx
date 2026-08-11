@@ -60,7 +60,7 @@ const Settings = () => {
                     id: user._id,
                     oldPassword,
                     newPassword,
-                }
+                }, authConfig()
             );
 
             Swal.fire({
