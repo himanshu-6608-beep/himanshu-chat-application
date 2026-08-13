@@ -2,8 +2,9 @@ import Messages from "../models/messages.js";
 
 export const getMessages = async (req, res) => {
   try {
-    const { senderId, receiverId } = req.params;
-
+    const {  receiverId } = req.params;
+    const senderId = req.user._id
+    console.log("senderID=",senderId)
     const messages = await Messages.find({
       $or: [
         {

@@ -74,7 +74,16 @@ const handleLogin = async (req, res) => {
         }
 
         const token = setUser(existingUser);
-
+        const updatedUser = await User.findByIdAndUpdate(
+            existingUser._id,
+            {
+                isOnline: true,
+                lastLogin: new Date(),
+            },
+            {
+                new: true,
+            }
+        );
         res.cookie("token", token, {
             secure: false,
             sameSite: "lax",
@@ -82,14 +91,17 @@ const handleLogin = async (req, res) => {
             path: "/",
         });
 
+
         return res.status(200).json({
             success: true,
             message: "Login successfully",
             user: {
-                _id: existingUser._id,
-                name: existingUser.name,
-                email: existingUser.email,
-                profileImage: existingUser.profileImage
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                profileImage: updatedUser.profileImage,
+                lastLogin: updatedUser.lastLogin,
+                isOnline: updatedUser.isOnline,
             },
             token
         });
@@ -173,25 +185,32 @@ const addUser = async (req, res) => {
         });
     }
 };
-
 const handleLogOut = async (req, res) => {
     try {
+        const userId = req.user._id;
+
+        await User.findByIdAndUpdate(userId, {
+            isOnline: false,
+            lastLogin: new Date(),
+        });
+
         res.clearCookie("token", {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
-            path: "/"
+            path: "/",
         });
 
         return res.status(200).json({
             success: true,
             message: "Logout successfully",
         });
-
     } catch (error) {
+        console.error("Logout error:", error);
+
         return res.status(500).json({
             success: false,
-            message: "Server error"
+            message: "Server error",
         });
     }
 };

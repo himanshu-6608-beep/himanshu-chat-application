@@ -175,8 +175,9 @@ const Contacts = () => {
                                         </td>
 
                                         <td>
-                                            <span className="status online"></span>
-                                            Online
+                                            <span>
+                                                {user.isOnline ? "Online" : "Offline"}
+                                            </span>
                                         </td>
                                     </tr>
                                 ))

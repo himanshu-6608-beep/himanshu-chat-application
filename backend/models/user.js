@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+
+    isOnline: {
+        type: Boolean,
+        default: false,
+    },
+
     lastLogin: {
         type: Date,
         default: null

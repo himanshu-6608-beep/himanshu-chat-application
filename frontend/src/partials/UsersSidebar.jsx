@@ -99,13 +99,17 @@ function UsersSidebar({
                 />
 
 
-                <span className="online-dot"></span>
+                <span
+                  className={`online-dot ${user.isOnline ? "online" : "offline"
+                    }`}
+                ></span>
               </div>
 
               <div className="user-info">
                 <h4>{user.name}</h4>
-
-                <span>Online</span>
+                <span>
+                  {user.isOnline ? "Online" : "Offline"}
+                </span>
               </div>
             </div>
           ))

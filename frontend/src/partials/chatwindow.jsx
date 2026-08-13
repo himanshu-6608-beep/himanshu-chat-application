@@ -15,7 +15,7 @@ function ChatWindow({ selectedUser }) {
         const storedUser = localStorage.getItem("user");
         return storedUser ? JSON.parse(storedUser) : null;
     }, []);
-
+    const token = localStorage.getItem("token")
     useEffect(() => {
         if (loggedInUser?._id) {
             socket.emit("join", loggedInUser._id);
@@ -31,7 +31,12 @@ function ChatWindow({ selectedUser }) {
         const loadMessages = async () => {
             try {
                 const { data } = await axios.get(
-                    `http://localhost:1222/api/messages/${loggedInUser._id}/${selectedUser._id}`
+                    `http://localhost:1222/api/messages/${selectedUser._id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
                 );
 
                 setMessages(data.messages);
@@ -129,8 +134,8 @@ function ChatWindow({ selectedUser }) {
                     <div className="chat-user-info">
                         <h3>{selectedUser.name}</h3>
 
-                        <span className="online-status">
-                            ● Online
+                        <span>
+                            {selectedUser.isOnline ? "🟢Online" : "🔴Offline"}
                         </span>
                     </div>
                 </div>
