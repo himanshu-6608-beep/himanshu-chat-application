@@ -30,11 +30,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-
-    lastLogin: {
-        type: Date,
-        default: null
-    },
     otp: {
         type: Number,
         default: null
@@ -46,7 +41,11 @@ const userSchema = new mongoose.Schema({
     lastMessageAt: {
         type: Date,
         default: null
-    }
+    },
+    socketId:{
+        type:String,
+        default:null
+    },
 }, {
     timestamps: true
 });

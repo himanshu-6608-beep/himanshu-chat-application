@@ -74,16 +74,6 @@ const handleLogin = async (req, res) => {
         }
 
         const token = setUser(existingUser);
-        const updatedUser = await User.findByIdAndUpdate(
-            existingUser._id,
-            {
-                isOnline: true,
-                lastLogin: new Date(),
-            },
-            {
-                new: true,
-            }
-        );
         res.cookie("token", token, {
             secure: false,
             sameSite: "lax",
@@ -96,12 +86,12 @@ const handleLogin = async (req, res) => {
             success: true,
             message: "Login successfully",
             user: {
-                _id: updatedUser._id,
-                name: updatedUser.name,
-                email: updatedUser.email,
-                profileImage: updatedUser.profileImage,
-                lastLogin: updatedUser.lastLogin,
-                isOnline: updatedUser.isOnline,
+                _id: existingUser._id,
+                name: existingUser.name,
+                email: existingUser.email,
+                profileImage: existingUser.profileImage,
+                lastLogin: existingUser.lastLogin,
+                isOnline: existingUser.isOnline,
             },
             token
         });

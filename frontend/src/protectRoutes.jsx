@@ -5,10 +5,10 @@ const ProtectedUser = ({ children }) => {
   const storedRole = localStorage.getItem("user");
 
   if (!storedRole) {
-    return <Navigate to= "/login" replace />;
-  }
+    return <Navigate to="/login" replace />;
+  } 
 
   return children;
 };
-    
+
 export default ProtectedUser;

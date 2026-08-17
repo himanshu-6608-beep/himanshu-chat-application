@@ -5,8 +5,10 @@ import {
   Search,
   MessageCircle,
   Users,
-  Bell,
   Settings,
+  LogOut,
+  X,
+  PanelLeft,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../css/sidebar.css";
@@ -15,115 +17,319 @@ import Swal from "sweetalert2";
 
 function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [search, setSearch] = useState("");
+
   const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
+
   const getToken = () => localStorage.getItem("token");
+
   const authConfig = () => ({
     headers: {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    },
   });
+
+  /*
+   * Logout
+   */
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:1222/api/logout",
+      const response = await axios.post(
+        "http://localhost:1222/api/logout",
         {},
         authConfig()
-      )
+      );
 
       if (response.status !== 200) {
         Swal.fire({
           title: "Logout failed",
-          icon: "error"
-        })
+          text: "Unable to logout. Please try again.",
+          icon: "error",
+          confirmButtonColor: "#7c3aed",
+        });
+
         return;
       }
-      Swal.fire({
-        title: "Logout Succes",
-        icon: "success"
-      })
-      localStorage.removeItem("user")
-      localStorage.removeItem("token")
 
-      navigate("/")
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+
+      await Swal.fire({
+        title: "Logout Successful",
+        text: "You have been logged out.",
+        icon: "success",
+        confirmButtonColor: "#7c3aed",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      navigate("/");
     } catch (error) {
+      console.error("Logout error:", error);
+
       Swal.fire({
         title: "Something went wrong",
-        icon: "error"
-      })
+        text: "Unable to logout. Please try again.",
+        icon: "error",
+        confirmButtonColor: "#7c3aed",
+      });
     }
-  }
+  };
+
+  /*
+   * Navigation items
+   */
+  const menuItems = [
+    {
+      path: "/messages",
+      label: "Messages",
+      icon: MessageCircle,
+    },
+    {
+      path: "/contacts",
+      label: "Contacts",
+      icon: Users,
+    },
+    {
+      path: "/settings",
+      label: "Settings",
+      icon: Settings,
+    },
+  ];
+
+  /*
+   * Clear search
+   */
+  const handleClearSearch = () => {
+    setSearch("");
+  };
+
+  /*
+   * Filter navigation items
+   */
+  const filteredMenuItems = menuItems.filter((item) =>
+    item.label.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
 
-      <div className="sidebar-header">
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
 
-        {!collapsed && (
-          <h2>KikChat</h2>
-        )}
+      <header className="sidebar-header">
+
+        <div className="brand-wrapper">
+          <div className="brand-icon">
+            <MessageCircle
+              size={20}
+              strokeWidth={2.4}
+            />
+          </div>
+
+          {!collapsed && (
+            <div className="brand-text">
+              <h2>KikChat</h2>
+              <span>Stay connected</span>
+            </div>
+          )}
+        </div>
 
         <button
+          type="button"
           className="toggle-btn"
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => setCollapsed((prev) => !prev)}
+          aria-label={
+            collapsed
+              ? "Expand sidebar"
+              : "Collapse sidebar"
+          }
+          title={
+            collapsed
+              ? "Expand sidebar"
+              : "Collapse sidebar"
+          }
         >
           {collapsed ? (
-            <ChevronRight size={20} />
+            <ChevronRight size={18} />
           ) : (
-            <ChevronLeft size={20} />
+            <ChevronLeft size={18} />
           )}
         </button>
 
-      </div>
+      </header>
 
-      <div className="menu">
 
-        <NavLink
-          to="/messages"
-          className={({ isActive }) =>
-            `menu-item ${isActive ? "active" : ""}`
-          }
-        >
-          <MessageCircle size={22} />
-          {!collapsed && <span>Messages</span>}
-        </NavLink>
+      {/* =====================================================
+          SEARCH
+      ===================================================== */}
 
-        <NavLink
-          to="/contacts"
-          className={({ isActive }) =>
-            `menu-item ${isActive ? "active" : ""}`
-          }
-        >
-          <Users size={22} />
-          {!collapsed && <span>Contacts</span>}
-        </NavLink>
-        
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            `menu-item ${isActive ? "active" : ""}`
-          }
-        >
-          <Settings size={22} />
-          {!collapsed && <span>Settings</span>}
-        </NavLink>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
+      <div className="search-box">
 
-      </div>
-
-      <div className="sidebar-footer">
+        <Search
+          size={18}
+          strokeWidth={2}
+          className="search-icon"
+        />
 
         {!collapsed && (
-          <div>
+          <>
+            <input
+              type="text"
+              placeholder="Search menu..."
+              value={search}
+              onChange={(event) =>
+                setSearch(event.target.value)
+              }
+              autoComplete="off"
+              aria-label="Search menu"
+            />
 
-            <h4>{user?.name}</h4>
+            {search && (
+              <button
+                type="button"
+                className="search-clear"
+                onClick={handleClearSearch}
+                aria-label="Clear search"
+              >
+                <X size={13} />
+              </button>
+            )}
+          </>
+        )}
 
-            <span>You</span>
+      </div>
+
+
+      {/* =====================================================
+          NAVIGATION
+      ===================================================== */}
+
+      <nav className="menu">
+
+        {!collapsed && (
+          <div className="menu-label">
+            MAIN MENU
+          </div>
+        )}
+
+        {filteredMenuItems.length > 0 ? (
+          filteredMenuItems.map(
+            ({ path, label, icon: Icon }, index) => (
+              <NavLink
+                key={path}
+                to={path}
+                className={({ isActive }) =>
+                  `menu-item ${
+                    isActive ? "active" : ""
+                  }`
+                }
+                title={collapsed ? label : ""}
+                style={{
+                  "--menu-delay": `${index * 45}ms`,
+                }}
+              >
+                <span className="menu-icon">
+                  <Icon
+                    size={20}
+                    strokeWidth={2}
+                  />
+                </span>
+
+                {!collapsed && (
+                  <span className="menu-text">
+                    {label}
+                  </span>
+                )}
+
+                {!collapsed && (
+                  <ChevronRight
+                    className="menu-arrow"
+                    size={15}
+                  />
+                )}
+              </NavLink>
+            )
+          )
+        ) : (
+          !collapsed && (
+            <div className="no-menu-results">
+              <Search size={20} />
+
+              <span>
+                No menu found
+              </span>
+            </div>
+          )
+        )}
+
+      </nav>
+
+
+      {/* =====================================================
+          FOOTER
+      ===================================================== */}
+
+      <footer className="sidebar-footer">
+
+        {/* USER PROFILE */}
+
+        {!collapsed && (
+          <div className="sidebar-user">
+
+            <div className="sidebar-user-avatar">
+              {user?.name
+                ?.charAt(0)
+                ?.toUpperCase() || "U"}
+
+              <span className="user-online-dot" />
+            </div>
+
+            <div className="sidebar-user-info">
+
+              <h4 title={user?.name || "User"}>
+                {user?.name || "User"}
+              </h4>
+
+              <span>
+                <i />
+                Online
+              </span>
+
+            </div>
 
           </div>
         )}
 
-      </div>
 
-    </div>
+        {/* LOGOUT */}
+
+        <button
+          type="button"
+          className="logout-button"
+          onClick={handleLogout}
+          title={collapsed ? "Logout" : ""}
+        >
+          <span className="logout-icon">
+            <LogOut
+              size={18}
+              strokeWidth={2}
+            />
+          </span>
+
+          {!collapsed && (
+            <span>
+              Logout
+            </span>
+          )}
+        </button>
+
+      </footer>
+
+    </aside>
   );
 }
 

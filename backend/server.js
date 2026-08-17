@@ -7,6 +7,7 @@ import { applyMiddleware } from "./middlewares/user.js";
 import { connectDB } from "./config/connect.js";
 import Messages from "./models/messages.js";
 import path from "path";
+import User from "./models/user.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -25,14 +26,30 @@ const io = new Server(server, {
 });
 
 app.set("io", io);
-  
+
 io.on("connection", (socket) => {
   console.log("Connected:", socket.id);
 
-  socket.on("join", (userId) => {
-    socket.join(userId.toString());
+
+  socket.on("join", async (userId) => {
+    try {
+      socket.join(userId.toString());
+      socket.data.userId = userId
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        {
+          socketId: socket.id,
+          isOnline: true,
+        },
+        {
+          new: true,
+        }
+      );
+    } catch (error) {
+      console.log(error)
+    }
+
   });
-  
   socket.on("send-message", async (data) => {
     try {
       const { sender, receiver, message } = data;
@@ -51,8 +68,15 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     console.log("Disconnected:", socket.id);
+    const userId = socket.data.userId
+    if (userId) {
+      await User.findByIdAndUpdate(userId, {
+        socketId: null,
+        isOnline: false
+      })
+    }
   });
 });
 

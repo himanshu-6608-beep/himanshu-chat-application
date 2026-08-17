@@ -1,10 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+.sidebar,
+.sidebar button,
+.sidebar input,
+.sidebar a {
+    font-family: "Poppins", sans-serif;
+}
+
 
 /* =========================================================
    SIDEBAR
@@ -13,124 +26,315 @@
 .sidebar {
     width: 290px;
     height: 100vh;
-    background: #ffffff;
-    border-right: 1px solid #ebe8f2;
+    height: 100dvh;
+
     display: flex;
     flex-direction: column;
-    transition: all 0.35s ease;
-    overflow: hidden;
-    flex-shrink: 0;
+
     position: relative;
-    z-index: 20;
-    box-shadow: 8px 0 30px rgba(40, 25, 80, 0.04);
+    z-index: 100;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 15% 0%,
+            rgba(124, 58, 237, 0.035),
+            transparent 30%),
+        #ffffff;
+
+    border-right: 1px solid #ebe8f2;
+
+    box-shadow:
+        8px 0 30px rgba(40, 25, 80, 0.035);
+
+    transition:
+        width 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .sidebar.collapsed {
-    width: 88px;
+    width: 86px;
 }
+
 
 /* =========================================================
    HEADER
 ========================================================= */
 
 .sidebar-header {
-    height: 88px;
-    padding: 0 20px;
+    height: 82px;
+    min-height: 82px;
+
+    padding: 0 17px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #ffffff;
-    border-bottom: 1px solid #f0edf5;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-bottom: 1px solid #eeeaf5;
+
+    box-shadow:
+        0 4px 18px rgba(40, 25, 80, 0.025);
+
     flex-shrink: 0;
 }
 
-.sidebar-header h2 {
-    font-family: "Poppins", sans-serif;
-    font-size: 27px;
-    color: #171b38;
-    font-weight: 700;
-    letter-spacing: -1px;
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand-wrapper {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
 }
 
-.sidebar-header h2::first-letter {
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            #6d28d9,
+            #7c3aed,
+            #a855f7);
+
+    box-shadow:
+        0 7px 18px rgba(124, 58, 237, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.brand-icon:hover {
+    transform: translateY(-1px) rotate(-2deg);
+
+    box-shadow:
+        0 10px 22px rgba(124, 58, 237, 0.25);
+}
+
+.brand-text {
+    min-width: 0;
+}
+
+.brand-text h2 {
+    margin: 0;
+
+    color: #171b38;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    letter-spacing: -0.6px;
+
+    line-height: 1.15;
+
+    white-space: nowrap;
+}
+
+.brand-text h2::first-letter {
     color: #7c3aed;
 }
+
+.brand-text span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #9a95a8;
+
+    font-size: 8.5px;
+    font-weight: 400;
+
+    line-height: 1.2;
+}
+
 
 /* =========================================================
    TOGGLE BUTTON
 ========================================================= */
 
 .toggle-btn {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #e8e1f3;
-    outline: none;
-    border-radius: 13px;
-    background: #f6f1ff;
-    color: #7c3aed;
+    width: 35px;
+    height: 35px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid #e8e1f3;
+    border-radius: 11px;
+
+    outline: none;
+
+    color: #7c3aed;
+    background: #f7f2ff;
+
     cursor: pointer;
-    transition: all 0.3s ease;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .toggle-btn:hover {
-    background: #7c3aed;
     color: #ffffff;
+
+    background: #7c3aed;
+
     border-color: #7c3aed;
+
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.2);
+
+    box-shadow:
+        0 8px 18px rgba(124, 58, 237, 0.20);
 }
 
 .toggle-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
+
+.toggle-btn:focus-visible {
+    outline: 3px solid rgba(124, 58, 237, 0.18);
+    outline-offset: 2px;
+}
+
 
 /* =========================================================
    SEARCH
 ========================================================= */
 
 .search-box {
-    height: 52px;
-    margin: 20px 18px 15px;
-    padding: 0 16px;
+    height: 50px;
+    min-height: 50px;
+
+    margin: 17px 16px 13px;
+    padding: 0 13px;
+
     display: flex;
     align-items: center;
-    gap: 11px;
-    background: #f8f7fb;
+
+    gap: 10px;
+
+    background: #f7f6fa;
+
     border: 1px solid #eeeaf5;
-    border-radius: 15px;
-    transition: all 0.3s ease;
+    border-radius: 14px;
+
+    transition:
+        background 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease;
+}
+
+.search-box:hover {
+    background: #faf9fc;
+
+    border-color: #e3dced;
 }
 
 .search-box:focus-within {
     background: #ffffff;
+
     border-color: #a78bfa;
-    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.08);
+
+    box-shadow:
+        0 0 0 4px rgba(124, 58, 237, 0.065),
+        0 7px 18px rgba(124, 58, 237, 0.045);
+
+    transform: translateY(-1px);
 }
 
-.search-box svg {
-    width: 19px;
-    height: 19px;
-    color: #7c3aed;
+.search-icon {
     flex-shrink: 0;
+
+    color: #7c3aed;
 }
 
 .search-box input {
     width: 100%;
+    min-width: 0;
+
     flex: 1;
+
     border: none;
     outline: none;
+
     background: transparent;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
+
     color: #272b45;
+
+    font-size: 12px;
+    font-weight: 400;
 }
 
 .search-box input::placeholder {
-    color: #969aad;
+    color: #9b97a8;
 }
+
+
+/* =========================================================
+   SEARCH CLEAR
+========================================================= */
+
+.search-clear {
+    width: 23px;
+    height: 23px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    color: #817c8c;
+
+    background: #eae6f1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.search-clear:hover {
+    color: #ffffff;
+
+    background: #7c3aed;
+
+    transform: scale(1.07);
+}
+
 
 /* =========================================================
    MENU
@@ -138,254 +342,22 @@
 
 .menu {
     flex: 1;
-    padding: 10px 14px;
+
+    min-height: 0;
+
+    padding: 7px 13px;
+
     display: flex;
     flex-direction: column;
-    gap: 7px;
+
+    gap: 6px;
+
     overflow-y: auto;
     overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #ddd5ec transparent;
 }
-
-/* =========================================================
-   MENU LABEL
-========================================================= */
-
-.menu::before {
-    content: "MENU";
-    padding: 5px 14px 9px;
-    color: #a0a3b2;
-    font-family: "Poppins", sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-}
-
-/* =========================================================
-   MENU ITEMS
-========================================================= */
-
-.menu-item {
-    height: 53px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 0 17px;
-    border-radius: 15px;
-    text-decoration: none;
-    color: #686d82;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-    white-space: nowrap;
-}
-
-.menu-item svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-}
-
-/* Hover */
-
-.menu-item:hover {
-    background: #f5efff;
-    color: #6d28d9;
-    transform: translateX(4px);
-}
-
-.menu-item:hover svg {
-    color: #7c3aed;
-    transform: scale(1.08);
-}
-
-/* Active */
-
-.menu-item.active {
-    background: linear-gradient(
-        100deg,
-        #6d28d9,
-        #7c3aed,
-        #8b5cf6
-    );
-    color: #ffffff;
-    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.22);
-}
-
-.menu-item.active::before {
-    content: "";
-    position: absolute;
-    width: 4px;
-    height: 22px;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #ffffff;
-    border-radius: 0 5px 5px 0;
-}
-
-.menu-item.active svg {
-    color: #ffffff;
-}
-
-/* =========================================================
-   COLLAPSED SIDEBAR
-========================================================= */
-
-.sidebar.collapsed .sidebar-header {
-    justify-content: center;
-    padding: 0;
-}
-
-.sidebar.collapsed .sidebar-header h2 {
-    display: none;
-}
-
-.sidebar.collapsed .toggle-btn {
-    display: flex;
-}
-
-.sidebar.collapsed .search-box {
-    width: 50px;
-    height: 50px;
-    margin: 18px auto;
-    padding: 0;
-    justify-content: center;
-    border-radius: 15px;
-}
-
-.sidebar.collapsed .search-box input {
-    display: none;
-}
-
-.sidebar.collapsed .menu {
-    padding: 10px 12px;
-    align-items: center;
-}
-
-.sidebar.collapsed .menu::before {
-    display: none;
-}
-
-.sidebar.collapsed .menu-item {
-    width: 52px;
-    height: 52px;
-    justify-content: center;
-    padding: 0;
-    border-radius: 15px;
-}
-
-.sidebar.collapsed .menu-item span {
-    display: none;
-}
-
-.sidebar.collapsed .menu-item:hover {
-    transform: translateY(-2px);
-}
-
-.sidebar.collapsed .menu-item.active::before {
-    display: none;
-}
-
-/* =========================================================
-   SIDEBAR FOOTER
-========================================================= */
-
-.sidebar-footer {
-    padding: 17px;
-    background: #ffffff;
-    border-top: 1px solid #eeeaf4;
-    flex-shrink: 0;
-}
-
-.sidebar-footer div {
-    background: linear-gradient(
-        135deg,
-        #f5efff,
-        #faf8ff
-    );
-    border: 1px solid #ebe2fa;
-    border-radius: 16px;
-    padding: 14px 15px;
-}
-
-.sidebar-footer h4 {
-    color: #252941;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 3px;
-}
-
-.sidebar-footer span {
-    color: #7c3aed;
-    font-family: "Poppins", sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-}
-
-.sidebar.collapsed .sidebar-footer {
-    padding: 14px 10px;
-}
-
-.sidebar.collapsed .sidebar-footer div {
-    display: none;
-}
-
-/* =========================================================
-   LOGOUT BUTTON
-========================================================= */
-
-.logout-button {
-    width: 100%;
-    height: 50px;
-    margin-top: 10px;
-    border: 1px solid #f2d8df;
-    outline: none;
-    background: #fff6f8;
-    color: #dc4561;
-    border-radius: 15px;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.logout-button:hover {
-    background: #dc4561;
-    color: #ffffff;
-    border-color: #dc4561;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(220, 69, 97, 0.2);
-}
-
-.logout-button:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-/* Collapsed logout */
-
-.sidebar.collapsed .logout-button {
-    width: 52px;
-    height: 52px;
-    margin: 10px auto 0;
-    padding: 0;
-    font-size: 0;
-    border-radius: 15px;
-}
-
-.sidebar.collapsed .logout-button svg {
-    width: 20px;
-    height: 20px;
-}
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
 
 .menu::-webkit-scrollbar {
     width: 5px;
@@ -404,58 +376,628 @@
     background: #b9a6d6;
 }
 
+
+/* =========================================================
+   MENU LABEL
+========================================================= */
+
+.menu-label {
+    padding: 6px 13px 9px;
+
+    color: #aaa5b4;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   MENU ITEM
+========================================================= */
+
+.menu-item {
+    width: 100%;
+    height: 51px;
+    min-height: 51px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 13px;
+
+    border: 1px solid transparent;
+    border-radius: 14px;
+
+    color: #686d82;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    outline: none;
+
+    animation:
+        fadeMenu 0.35s ease both;
+
+    animation-delay: var(--menu-delay);
+
+    transition:
+        background 0.22s ease,
+        border-color 0.22s ease,
+        color 0.22s ease,
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+
+/* =========================================================
+   MENU ICON
+========================================================= */
+
+.menu-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    transition:
+        background 0.22s ease,
+        color 0.22s ease,
+        transform 0.22s ease;
+}
+
+
+/* =========================================================
+   MENU HOVER
+========================================================= */
+
+.menu-item:hover {
+    color: #6d28d9;
+
+    background: #f5efff;
+
+    border-color: #ebe2fa;
+
+    transform: translateX(3px);
+}
+
+.menu-item:hover .menu-icon {
+    color: #7c3aed;
+
+    background: #eee5ff;
+
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   ACTIVE MENU
+========================================================= */
+
+.menu-item.active {
+    color: #ffffff;
+
+    background:
+        linear-gradient(105deg,
+            #6d28d9 0%,
+            #7c3aed 55%,
+            #8b5cf6 100%);
+
+    border-color: transparent;
+
+    box-shadow:
+        0 9px 23px rgba(124, 58, 237, 0.20);
+}
+
+.menu-item.active:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(105deg,
+            #6d28d9 0%,
+            #7c3aed 55%,
+            #8b5cf6 100%);
+
+    transform: translateX(0);
+
+    border-color: transparent;
+}
+
+.menu-item.active::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 4px;
+    height: 25px;
+
+    transform: translateY(-50%);
+
+    border-radius: 0 5px 5px 0;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.30);
+}
+
+.menu-item.active .menu-icon {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.menu-item.active .menu-arrow {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* =========================================================
+   MENU ARROW
+========================================================= */
+
+.menu-arrow {
+    margin-left: auto;
+
+    color: #b5afc0;
+
+    opacity: 0;
+
+    transform: translateX(-4px);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.menu-item:hover .menu-arrow,
+.menu-item.active .menu-arrow {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.menu-item:focus-visible {
+    outline: 3px solid rgba(124, 58, 237, 0.16);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   NO RESULTS
+========================================================= */
+
+.no-menu-results {
+    min-height: 120px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    color: #9b96a8;
+
+    font-size: 10px;
+}
+
+.no-menu-results svg {
+    color: #b4a5ca;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.sidebar-footer {
+    padding: 13px 15px 15px;
+
+    flex-shrink: 0;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-top: 1px solid #eeeaf4;
+
+    box-shadow:
+        0 -5px 15px rgba(50, 30, 90, 0.025);
+}
+
+
+/* =========================================================
+   USER PROFILE
+========================================================= */
+
+.sidebar-user {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 11px;
+
+    border: 1px solid #ebe2fa;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(135deg,
+            #f5efff,
+            #faf8ff);
+}
+
+.sidebar-user-avatar {
+    width: 38px;
+    height: 38px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            #6d28d9,
+            #a855f7);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    box-shadow:
+        0 6px 15px rgba(124, 58, 237, 0.20);
+}
+
+.user-online-dot {
+    width: 9px;
+    height: 9px;
+
+    position: absolute;
+
+    right: -2px;
+    bottom: -1px;
+
+    border: 2px solid #ffffff;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 2px rgba(34, 197, 94, 0.08);
+}
+
+.sidebar-user-info {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.sidebar-user-info h4 {
+    margin: 0 0 3px;
+
+    overflow: hidden;
+
+    color: #252941;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sidebar-user-info span {
+    display: flex;
+    align-items: center;
+
+    color: #20a45a;
+
+    font-size: 9px;
+    font-weight: 500;
+}
+
+.sidebar-user-info span i {
+    width: 5px;
+    height: 5px;
+
+    margin-right: 5px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-button {
+    width: 100%;
+    height: 47px;
+
+    margin-top: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    border: 1px solid #f2d8df;
+    border-radius: 13px;
+
+    outline: none;
+
+    color: #dc4561;
+
+    background: #fff6f8;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.22s ease,
+        border-color 0.22s ease,
+        color 0.22s ease,
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.logout-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-button:hover {
+    color: #ffffff;
+
+    background: #dc4561;
+
+    border-color: #dc4561;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 21px rgba(220, 69, 97, 0.20);
+}
+
+.logout-button:active {
+    transform: translateY(0);
+
+    box-shadow: none;
+}
+
+.logout-button:focus-visible {
+    outline: 3px solid rgba(220, 69, 97, 0.18);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+========================================================= */
+
+.sidebar.collapsed .sidebar-header {
+    justify-content: center;
+
+    padding: 0 10px;
+}
+
+.sidebar.collapsed .brand-text {
+    display: none;
+}
+
+.sidebar.collapsed .brand-wrapper {
+    gap: 0;
+}
+
+.sidebar.collapsed .brand-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.sidebar.collapsed .toggle-btn {
+    position: absolute;
+
+    right: 6px;
+    bottom: -13px;
+
+    width: 25px;
+    height: 25px;
+
+    z-index: 3;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 3px 10px rgba(50, 30, 90, 0.12);
+}
+
+
+/* =========================================================
+   COLLAPSED SEARCH
+========================================================= */
+
+.sidebar.collapsed .search-box {
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+
+    margin: 18px auto 14px;
+
+    padding: 0;
+
+    justify-content: center;
+
+    border-radius: 14px;
+}
+
+.sidebar.collapsed .search-box input {
+    display: none;
+}
+
+
+/* =========================================================
+   COLLAPSED MENU
+========================================================= */
+
+.sidebar.collapsed .menu {
+    padding: 8px 12px;
+
+    align-items: center;
+}
+
+.sidebar.collapsed .menu-label {
+    display: none;
+}
+
+.sidebar.collapsed .menu-item {
+    width: 52px;
+    height: 52px;
+    min-height: 52px;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border-radius: 15px;
+}
+
+.sidebar.collapsed .menu-item span.menu-text,
+.sidebar.collapsed .menu-arrow {
+    display: none;
+}
+
+.sidebar.collapsed .menu-icon {
+    width: 38px;
+    height: 38px;
+}
+
+.sidebar.collapsed .menu-item:hover {
+    transform: translateY(-2px);
+}
+
+.sidebar.collapsed .menu-item.active::before {
+    display: none;
+}
+
+
+/* =========================================================
+   COLLAPSED FOOTER
+========================================================= */
+
+.sidebar.collapsed .sidebar-footer {
+    padding: 12px 10px 14px;
+}
+
+.sidebar.collapsed .sidebar-user {
+    display: none;
+}
+
+.sidebar.collapsed .logout-button {
+    width: 52px;
+    height: 52px;
+
+    margin: 0 auto;
+
+    padding: 0;
+
+    border-radius: 15px;
+
+    font-size: 0;
+}
+
+.sidebar.collapsed .logout-icon {
+    display: flex;
+}
+
+
 /* =========================================================
    ANIMATION
 ========================================================= */
 
-.menu-item {
-    animation: fadeMenu 0.4s ease forwards;
-}
-
-.menu-item:nth-child(2) {
-    animation-delay: 0.05s;
-}
-
-.menu-item:nth-child(3) {
-    animation-delay: 0.1s;
-}
-
-.menu-item:nth-child(4) {
-    animation-delay: 0.15s;
-}
-
-.menu-item:nth-child(5) {
-    animation-delay: 0.2s;
-}
-
 @keyframes fadeMenu {
     from {
         opacity: 0;
-        transform: translateX(-15px);
+
+        transform: translateX(-10px);
     }
 
     to {
         opacity: 1;
+
         transform: translateX(0);
     }
 }
 
+
 /* =========================================================
-   RESPONSIVE
+   TABLET
 ========================================================= */
 
 @media (max-width: 1000px) {
+
     .sidebar {
-        width: 88px;
+        width: 86px;
+    }
+
+    .brand-text {
+        display: none;
     }
 
     .sidebar-header {
         justify-content: center;
-        padding: 0;
+
+        padding: 0 10px;
     }
 
-    .sidebar-header h2 {
-        display: none;
+    .brand-wrapper {
+        gap: 0;
     }
 
     .toggle-btn {
@@ -463,36 +1005,54 @@
     }
 
     .search-box {
-        width: 50px;
-        height: 50px;
-        margin: 18px auto;
+        width: 48px;
+        height: 48px;
+        min-height: 48px;
+
+        margin: 18px auto 14px;
+
         padding: 0;
+
         justify-content: center;
-        border-radius: 15px;
+
+        border-radius: 14px;
     }
 
-    .search-box input {
+    .search-box input,
+    .search-clear {
         display: none;
     }
 
     .menu {
-        padding: 10px 12px;
+        padding: 8px 12px;
+
         align-items: center;
     }
 
-    .menu::before {
+    .menu-label {
         display: none;
     }
 
     .menu-item {
         width: 52px;
         height: 52px;
+        min-height: 52px;
+
         justify-content: center;
+
         padding: 0;
+
+        border-radius: 15px;
     }
 
-    .menu-item span {
+    .menu-text,
+    .menu-arrow {
         display: none;
+    }
+
+    .menu-icon {
+        width: 38px;
+        height: 38px;
     }
 
     .menu-item:hover {
@@ -503,36 +1063,75 @@
         display: none;
     }
 
-    .sidebar-footer div {
+    .sidebar-footer {
+        padding: 12px 10px 14px;
+    }
+
+    .sidebar-user {
         display: none;
     }
 
-    .sidebar-footer {
-        padding: 12px 10px;
+    .logout-button {
+        width: 52px;
+        height: 52px;
+
+        margin: 0 auto;
+
+        padding: 0;
+
+        border-radius: 15px;
+
+        font-size: 0;
     }
 }
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
 @media (max-width: 600px) {
+
     .sidebar {
         width: 72px;
     }
 
+    .sidebar-header {
+        height: 70px;
+        min-height: 70px;
+    }
+
+    .brand-icon {
+        width: 36px;
+        height: 36px;
+
+        border-radius: 11px;
+    }
+
     .search-box {
-        width: 46px;
-        height: 46px;
+        width: 45px;
+        height: 45px;
+        min-height: 45px;
+    }
+
+    .menu {
+        padding: 8px 8px;
     }
 
     .menu-item {
         width: 48px;
         height: 48px;
+        min-height: 48px;
+
         border-radius: 13px;
     }
 
-    .menu-item svg {
+    .menu-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .menu-icon svg {
         width: 19px;
         height: 19px;
     }
@@ -540,9 +1139,88 @@
     .logout-button {
         width: 46px;
         height: 46px;
-        font-size: 0;
-        padding: 0;
+
         border-radius: 13px;
-        margin: 8px auto 0;
+    }
+
+    .sidebar-footer {
+        padding: 10px 8px 12px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .sidebar {
+        width: 68px;
+    }
+
+    .sidebar-header {
+        height: 65px;
+        min-height: 65px;
+    }
+
+    .brand-icon {
+        width: 34px;
+        height: 34px;
+
+        border-radius: 10px;
+    }
+
+    .search-box {
+        width: 42px;
+        height: 42px;
+        min-height: 42px;
+
+        margin-top: 14px;
+    }
+
+    .menu {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .menu-item {
+        width: 44px;
+        height: 44px;
+        min-height: 44px;
+    }
+
+    .menu-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .logout-button {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sidebar,
+    .toggle-btn,
+    .brand-icon,
+    .search-box,
+    .search-clear,
+    .menu-item,
+    .menu-icon,
+    .menu-arrow,
+    .logout-button {
+        transition: none;
+    }
+
+    .menu-item {
+        animation: none;
     }
 }
